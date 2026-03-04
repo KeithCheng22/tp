@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# HireShell Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -274,13 +274,19 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* meets a lot of new people daily
+* has a large number of contacts with a short lifecycle
+* enjoys using keyboard shortcuts
+* needs to categorise their contacts 
+* works in an office, uses a desktop 
+* values efficiency and speed over user interface 
+* frequently performs batch operations (e.g. deleting a whole group)
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Our application provides a comprehensive list of potential job candidates. 
+It provides the ability to quickly change details (e.g. add, delete) of contacts, including streamlined batch operations. 
+It also categorises contacts, with the ability to quickly search, sort, and retrieve contacts. 
+It is optimised for fast keyboard navigation.
+
 
 
 ### User stories
