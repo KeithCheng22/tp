@@ -21,15 +21,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 - Role: Project Advisor
 
-### Jane Doe
+### Nivanth Naricitty
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/nivanthn.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/nivanthn)]
 
-- Role: Team Lead
-- Responsibilities: UI
+- Role: Team Member
+- Responsibilities: UI, Data
 
 ### Johnny Doe
 
