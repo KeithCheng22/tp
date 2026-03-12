@@ -110,7 +110,8 @@ class JsonAdaptedPerson {
         final Set<Role> modelRoles = new HashSet<>(personRoles);
 
         if (referralStatus == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ReferralStatus.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ReferralStatus.class.getSimpleName()));
         }
         try {
             modelReferralStatus = ReferralStatus.valueOf(referralStatus);

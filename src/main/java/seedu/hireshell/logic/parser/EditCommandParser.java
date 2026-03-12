@@ -33,7 +33,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_STATUS, PREFIX_ROLE, PREFIX_REFERRAL_STATUS);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_STATUS, PREFIX_ROLE,
+                        PREFIX_REFERRAL_STATUS);
 
         Index index;
 
@@ -62,7 +63,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseRolesForEdit(argMultimap.getAllValues(PREFIX_ROLE)).ifPresent(editPersonDescriptor::setRoles);
 
         if (argMultimap.getValue(PREFIX_REFERRAL_STATUS).isPresent()) {
-            editPersonDescriptor.setReferralStatus(ParserUtil.parseReferralStatus(argMultimap.getValue(PREFIX_REFERRAL_STATUS).get()));
+            editPersonDescriptor.setReferralStatus(ParserUtil.parseReferralStatus(argMultimap
+                    .getValue(PREFIX_REFERRAL_STATUS).get()));
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {

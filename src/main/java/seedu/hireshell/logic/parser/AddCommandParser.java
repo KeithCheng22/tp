@@ -13,7 +13,12 @@ import java.util.stream.Stream;
 
 import seedu.hireshell.logic.commands.AddCommand;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
-import seedu.hireshell.model.person.*;
+import seedu.hireshell.model.person.Email;
+import seedu.hireshell.model.person.Name;
+import seedu.hireshell.model.person.Person;
+import seedu.hireshell.model.person.Phone;
+import seedu.hireshell.model.person.ReferralStatus;
+import seedu.hireshell.model.person.Status;
 import seedu.hireshell.model.role.Role;
 
 /**
@@ -28,9 +33,11 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_STATUS, PREFIX_ROLE, PREFIX_REFERRAL_STATUS);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_STATUS, PREFIX_ROLE,
+                        PREFIX_REFERRAL_STATUS);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_STATUS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_REFERRAL_STATUS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_STATUS, PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_REFERRAL_STATUS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -41,7 +48,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Status status = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_STATUS).get());
         Set<Role> roleList = ParserUtil.parseRoles(argMultimap.getAllValues(PREFIX_ROLE));
-        ReferralStatus referralStatus = ParserUtil.parseReferralStatus(argMultimap.getValue(PREFIX_REFERRAL_STATUS).get());
+        ReferralStatus referralStatus = ParserUtil.parseReferralStatus(argMultimap
+                .getValue(PREFIX_REFERRAL_STATUS).get());
 
         Person person = new Person(name, phone, email, status, roleList, referralStatus);
 

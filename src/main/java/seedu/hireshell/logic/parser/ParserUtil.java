@@ -123,6 +123,14 @@ public class ParserUtil {
         return roleSet;
     }
 
+    /**
+     * Parses a {@code String} into a {@code ReferralStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param referralStatus The referral status string to parse.
+     * @return The corresponding {@code ReferralStatus}.
+     * @throws ParseException if the given {@code referralStatus} is invalid.
+     */
     public static ReferralStatus parseReferralStatus(String referralStatus) throws ParseException {
         requireNonNull(referralStatus);
         String trimmedReferralStatus = referralStatus.trim().toLowerCase();

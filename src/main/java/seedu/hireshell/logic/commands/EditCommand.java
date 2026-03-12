@@ -103,7 +103,8 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Status updatedStatus = editPersonDescriptor.getStatus().orElse(personToEdit.getStatus());
         Set<Role> updatedRoles = editPersonDescriptor.getRoles().orElse(personToEdit.getRoles());
-        ReferralStatus updatedReferralStatus = editPersonDescriptor.getReferralStatus().orElse(personToEdit.getReferralStatus());
+        ReferralStatus updatedReferralStatus = editPersonDescriptor.getReferralStatus()
+                .orElse(personToEdit.getReferralStatus());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedStatus, updatedRoles, updatedReferralStatus);
     }
