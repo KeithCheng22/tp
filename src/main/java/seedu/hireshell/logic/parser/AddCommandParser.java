@@ -1,14 +1,24 @@
 package seedu.hireshell.logic.parser;
 
 import static seedu.hireshell.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.hireshell.logic.parser.CliSyntax.*;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.hireshell.logic.commands.AddCommand;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
-import seedu.hireshell.model.person.*;
+import seedu.hireshell.model.person.Email;
+import seedu.hireshell.model.person.Name;
+import seedu.hireshell.model.person.Person;
+import seedu.hireshell.model.person.Phone;
+import seedu.hireshell.model.person.Rating;
+import seedu.hireshell.model.person.Status;
 import seedu.hireshell.model.tag.Tag;
 
 /**
@@ -23,7 +33,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_RATING, PREFIX_STATUS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
+                        PREFIX_EMAIL, PREFIX_RATING, PREFIX_STATUS, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_STATUS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_RATING)
                 || !argMultimap.getPreamble().isEmpty()) {
