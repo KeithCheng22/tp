@@ -1,22 +1,14 @@
 package seedu.hireshell.logic.parser;
 
 import static seedu.hireshell.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.hireshell.logic.parser.CliSyntax.*;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.hireshell.logic.commands.AddCommand;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
-import seedu.hireshell.model.person.Address;
-import seedu.hireshell.model.person.Email;
-import seedu.hireshell.model.person.Name;
-import seedu.hireshell.model.person.Person;
-import seedu.hireshell.model.person.Phone;
+import seedu.hireshell.model.person.*;
 import seedu.hireshell.model.tag.Tag;
 
 /**
@@ -31,9 +23,9 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_REFERRAL_STATUS);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_REFERRAL_STATUS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -44,8 +36,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        ReferralStatus referralStatus = ParserUtil.parseReferralStatus(argMultimap.getValue(PREFIX_REFERRAL_STATUS).get());
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Person person = new Person(name, phone, email, address, tagList, referralStatus);
 
         return new AddCommand(person);
     }

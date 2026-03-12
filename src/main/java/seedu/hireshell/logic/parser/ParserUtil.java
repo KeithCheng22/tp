@@ -9,10 +9,7 @@ import java.util.Set;
 import seedu.hireshell.commons.core.index.Index;
 import seedu.hireshell.commons.util.StringUtil;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
-import seedu.hireshell.model.person.Address;
-import seedu.hireshell.model.person.Email;
-import seedu.hireshell.model.person.Name;
-import seedu.hireshell.model.person.Phone;
+import seedu.hireshell.model.person.*;
 import seedu.hireshell.model.tag.Tag;
 
 /**
@@ -120,5 +117,16 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static ReferralStatus parseReferralStatus(String referralStatus) throws ParseException {
+        requireNonNull(referralStatus);
+        String trimmedReferralStatus = referralStatus.trim().toLowerCase();
+
+        if (!ReferralStatus.isValidReferralStatus(trimmedReferralStatus)) {
+            throw new ParseException(ReferralStatus.MESSAGE_CONSTRAINTS);
+        }
+
+        return ReferralStatus.fromString(trimmedReferralStatus);
     }
 }

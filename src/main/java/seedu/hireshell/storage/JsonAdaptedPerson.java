@@ -10,11 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.hireshell.commons.exceptions.IllegalValueException;
-import seedu.hireshell.model.person.Address;
-import seedu.hireshell.model.person.Email;
-import seedu.hireshell.model.person.Name;
-import seedu.hireshell.model.person.Person;
-import seedu.hireshell.model.person.Phone;
+import seedu.hireshell.logic.parser.ParserUtil;
+import seedu.hireshell.model.person.*;
 import seedu.hireshell.model.tag.Tag;
 
 /**
@@ -29,6 +26,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final String referralStatus;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -36,7 +34,7 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("referralStatus") String referralStatus) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -44,6 +42,7 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.referralStatus = referralStatus;
     }
 
     /**
@@ -57,6 +56,7 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        referralStatus = source.getReferralStatus().name();
     }
 
     /**
@@ -66,6 +66,7 @@ class JsonAdaptedPerson {
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
+        final ReferralStatus modelReferralStatus;
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
         }
@@ -103,7 +104,17 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+
+        if (referralStatus == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ReferralStatus.class.getSimpleName()));
+        }
+        try {
+            modelReferralStatus = ReferralStatus.valueOf(referralStatus);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(ReferralStatus.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelReferralStatus);
     }
 
 }
