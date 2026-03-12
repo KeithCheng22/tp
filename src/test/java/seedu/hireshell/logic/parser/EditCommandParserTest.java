@@ -11,21 +11,21 @@ import static seedu.hireshell.logic.commands.CommandTestUtil.INVALID_STATUS_DESC
 import static seedu.hireshell.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.hireshell.logic.commands.CommandTestUtil.STATUS_DESC_AMY;
-import static seedu.hireshell.logic.commands.CommandTestUtil.STATUS_DESC_BOB;
 import static seedu.hireshell.logic.commands.CommandTestUtil.ROLE_DESC_FRIEND;
 import static seedu.hireshell.logic.commands.CommandTestUtil.ROLE_DESC_HUSBAND;
+import static seedu.hireshell.logic.commands.CommandTestUtil.STATUS_DESC_AMY;
+import static seedu.hireshell.logic.commands.CommandTestUtil.STATUS_DESC_BOB;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_STATUS_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_ROLE_FRIEND;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_ROLE_HUSBAND;
+import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_STATUS_AMY;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.hireshell.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.hireshell.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.hireshell.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -41,8 +41,8 @@ import seedu.hireshell.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Phone;
-import seedu.hireshell.model.role.Role;
 import seedu.hireshell.model.person.Status;
+import seedu.hireshell.model.role.Role;
 import seedu.hireshell.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {

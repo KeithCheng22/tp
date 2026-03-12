@@ -9,8 +9,8 @@ import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Person;
 import seedu.hireshell.model.person.Phone;
-import seedu.hireshell.model.role.Role;
 import seedu.hireshell.model.person.Status;
+import seedu.hireshell.model.role.Role;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
