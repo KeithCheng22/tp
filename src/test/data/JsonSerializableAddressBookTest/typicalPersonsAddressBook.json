@@ -4,78 +4,43 @@
     "name" : "Alice Pauline",
     "phone" : "94351253",
     "email" : "alice@example.com",
-<<<<<<< HEAD
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "roles" : [ "friends" ]
-=======
     "status" : "123, Jurong West Ave 6, #08-111",
-    "tags" : [ "friends" ]
->>>>>>> master
+    "roles" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
-<<<<<<< HEAD
-    "address" : "311, Clementi Ave 2, #02-25",
-    "roles" : [ "owesMoney", "friends" ]
-=======
     "status" : "311, Clementi Ave 2, #02-25",
-    "tags" : [ "owesMoney", "friends" ]
->>>>>>> master
+    "roles" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
-<<<<<<< HEAD
-    "address" : "wall street",
-    "roles" : [ ]
-=======
     "status" : "wall street",
-    "tags" : [ ]
->>>>>>> master
+    "roles" : [ ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
-<<<<<<< HEAD
-    "address" : "10th street",
-    "roles" : [ "friends" ]
-=======
     "status" : "10th street",
-    "tags" : [ "friends" ]
->>>>>>> master
+    "roles" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "email" : "werner@example.com",
-<<<<<<< HEAD
-    "address" : "michegan ave",
-    "roles" : [ ]
-=======
     "status" : "michegan ave",
-    "tags" : [ ]
->>>>>>> master
+    "roles" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@example.com",
-<<<<<<< HEAD
-    "address" : "little tokyo",
-    "roles" : [ ]
-=======
     "status" : "little tokyo",
-    "tags" : [ ]
->>>>>>> master
+    "roles" : [ ]
   }, {
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@example.com",
-<<<<<<< HEAD
-    "address" : "4th street",
-    "roles" : [ ]
-=======
     "status" : "4th street",
-    "tags" : [ ]
->>>>>>> master
+    "roles" : [ ]
   } ]
 }

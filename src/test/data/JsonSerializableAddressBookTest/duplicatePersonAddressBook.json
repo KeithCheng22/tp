@@ -3,13 +3,8 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
-<<<<<<< HEAD
-    "address": "123, Jurong West Ave 6, #08-111",
-    "roles": [ "friends" ]
-=======
     "status": "123, Jurong West Ave 6, #08-111",
-    "tags": [ "friends" ]
->>>>>>> master
+    "roles": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
