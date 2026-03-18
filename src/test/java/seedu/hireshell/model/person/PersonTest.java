@@ -3,9 +3,9 @@ package seedu.hireshell.model.person;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_ROLE_HUSBAND;
 import static seedu.hireshell.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
@@ -13,7 +13,6 @@ import static seedu.hireshell.testutil.Assert.assertThrows;
 import static seedu.hireshell.testutil.TypicalPersons.ALICE;
 import static seedu.hireshell.testutil.TypicalPersons.AMY;
 import static seedu.hireshell.testutil.TypicalPersons.BOB;
-
 
 import org.junit.jupiter.api.Test;
 
