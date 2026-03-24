@@ -6,7 +6,23 @@ pageNav: 3
 
 # HireShell
 
-HireShell is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+HireShell is a **desktop contact management application** designed for **Job Recruiters** who prefer **speed and efficiency** 
+in managing (e.g. adding, deleting, editing) a large number of applicant contacts. It combines a Command Line Interface 
+(CLI) with the clarity of a Graphical User Interface (GUI).
+
+If you are a Job Recruiter and are comfortable typing commands fast, HireShell helps you to organise, categorise and 
+filter applicant contacts quickly, with minimal use of a mouse.
+
+Instead of clicking through multiple menus, you can perform all actions using simple, structured commands. 
+This lets you manage and review applicants more efficiently once you are familiar with the command format.
+
+**What you can expect**\
+In this guide, you will find:
+- A [Quick Start](#quick-start) section to get the app running
+- An overview of the user interface
+- Step-by-step instructions for using commands
+- Examples to help you learn faster
+- Troubleshooting tips
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -15,20 +31,34 @@ HireShell is a **desktop app for managing contacts, optimized for use via a  Lin
 
 ## Quick Start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+1. Ensure you have Java `17` or above installed in your computer.<br>
+   **Mac users:** Follow the setup guide [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-2. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103T-T10-3/tp/releases).
+2. Download the latest `hireshell.jar` file from [here](https://github.com/AY2526S2-CS2103T-T10-3/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Create a folder (e.g. named **HireShell**).
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar hireshell.jar` command to run the application.<br>
+4. Move the `hireshell.jar` file into this folder.
 
+5. Open a command terminal and navigate to the **HireShell** folder.
+   - **Windows:** Use Command Prompt or PowerShell
+   - **Mac/Linux:** Use Terminal 
 
-A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+Example: 
+```bash
+cd path/to/HireShell
+```
+
+6. Run the application using the following command: 
+```
+java -jar hireshell.jar
+```
+
+7. If the setup is successful, the HireShell GUI (see below) should appear in a few seconds. \
+_**Note that the app contains sample data.**_<br> \
 ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+8. Type the command in the command box and press `Enter` to execute it. e.g. typing **`help`** and pressing `Enter` will open the help window.<br> \
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -41,7 +71,7 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 
    * `exit` : Exits the app.
 
-6. Refer to the [Features](#features) below for details of each command.
+9. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
