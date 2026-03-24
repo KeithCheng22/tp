@@ -183,11 +183,20 @@ _Details coming soon ..._
 
 ## FAQ
 
+**Q**: Is my data saved automatically?<br>
+**A**: Yes, HireShell saves your data automatically. There is no need to manually save!
+
+**Q**: Is my data safe?<br>
+**A**: Yes! Your data is stored locally in the data folder. This ensures that sensitive information will not be leaked!
+
+**Q**: Why is HireShell not starting for me?<br>
+**A**: Ensure that you have Java 17 installed on your computer. Enter 'java -version' in your system terminal to check the version that you have!
+
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HireShell home folder.
 
 **Q**: How do I export my data?<br>
-**A**: Feature not implemented yet.
+**A**: This feature has not been implemented yet.
 
 --------------------------------------------------------------------------------------------------------------------
 
