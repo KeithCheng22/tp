@@ -6,7 +6,23 @@ pageNav: 3
 
 # HireShell
 
-HireShell is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+HireShell is a **desktop contact management application** designed for **Job Recruiters** who prefer **speed and efficiency** 
+in managing (e.g. adding, deleting, editing) a large number of applicant contacts. It combines a Command Line Interface 
+(CLI) with the clarity of a Graphical User Interface (GUI).
+
+If you are a Job Recruiter and are comfortable typing commands fast, HireShell helps you to organise, categorise and 
+filter applicant contacts quickly, with minimal use of a mouse.
+
+Instead of clicking through multiple menus, you can perform all actions using simple, structured commands. 
+This lets you manage and review applicants more efficiently once you are familiar with the command format.
+
+**What you can expect**\
+In this guide, you will find:
+- A [Quick Start](#quick-start) section to get the app running
+- An overview of the user interface
+- Step-by-step instructions for using commands
+- Examples to help you learn faster
+- Troubleshooting tips
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -15,20 +31,34 @@ HireShell is a **desktop app for managing contacts, optimized for use via a  Lin
 
 ## Quick Start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+1. Ensure you have Java `17` or above installed in your computer.<br>
+   **Mac users:** Follow the setup guide [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-2. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103T-T10-3/tp/releases).
+2. Download the latest `hireshell.jar` file from [here](https://github.com/AY2526S2-CS2103T-T10-3/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Create a folder (e.g. named **HireShell**).
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar hireshell.jar` command to run the application.<br>
+4. Move the `hireshell.jar` file into this folder.
 
+5. Open a command terminal and navigate to the **HireShell** folder.
+   - **Windows:** Use Command Prompt or PowerShell
+   - **Mac/Linux:** Use Terminal 
 
-A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+Example: 
+```bash
+cd path/to/HireShell
+```
+
+6. Run the application using the following command: 
+```
+java -jar hireshell.jar
+```
+
+7. If the setup is successful, the HireShell GUI (see below) should appear in a few seconds. \
+_**Note that the app contains sample data.**_<br> \
 ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+8. Type the command in the command box and press `Enter` to execute it. e.g. typing **`help`** and pressing `Enter` will open the help window.<br> \
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -41,7 +71,7 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 
    * `exit` : Exits the app.
 
-6. Refer to the [Features](#features) below for details of each command.
+9. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -134,6 +164,36 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+### Filtering persons by rating or status: `filter`
+
+Filters persons whose rating and/or status match the specified criteria.
+
+Format: `filter [rt/RATING_FILTER] [s/STATUS]`
+
+* At least one of the optional fields must be provided.
+* `RATING_FILTER` can include a comparison operator (`>`, `>=`, `<`, `<=`, `==`) followed by a number. If no operator is provided, `==` is assumed.
+* `STATUS` matches the status field of the person (case-insensitive).
+* If both rating and status are provided, only persons matching both criteria will be shown.
+
+Examples:
+* `filter rt/ >= 7` returns persons with a rating of 7.0 or higher.
+* `filter s/Interviewing` returns persons whose status is "Interviewing".
+* `filter rt/ < 5 s/Rejected` returns persons with a rating less than 5.0 and a status of "Rejected".
+
+### Sorting persons by rating: `sort`
+
+Sorts the currently displayed list of persons by their rating.
+
+Format: `sort rt/ORDER`
+
+* `ORDER` must be either `asc` (for ascending order) or `desc` (for descending order).
+* `asc` sorts persons from the lowest rating to the highest.
+* `desc` sorts persons from the highest rating to the lowest.
+
+Examples:
+* `sort rt/asc`
+* `sort rt/desc`
+
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
@@ -212,12 +272,14 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action                                    | Format, Examples                                                                                                                                                                            |
-|-------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **[Add](#adding-a-person-add)**           | `add n/NAME p/PHONE_NUMBER e/EMAIL rt/RATING s/STATUS rs/REFERRAL_STATUS r/ROLE…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com rt/8.5 s/Approved rs/Yes r/SoftwareEngineer` |
-| **[Clear](#clearing-all-entries--clear)** | `clear`                                                                                                                                                                                     |
-| **[Delete](#deleting-a-person--delete)**  | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                         |
-| **[Edit](#editing-a-person--edit)**       | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com rt/9.0`                         |
-| **[Find](#locating-persons-by-name-find)** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                  |
-| **[List](#listing-all-persons--list)**    | `list`                                                                                                                                                                                      |
-| **[Help](#viewing-help--help)**           | `help`                                                                                                                                                                                      |
+| Action                                                      | Format, Examples                                                                                                                                                                            |
+|-------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **[Add](#adding-a-person-add)**                             | `add n/NAME p/PHONE_NUMBER e/EMAIL rt/RATING s/STATUS rs/REFERRAL_STATUS r/ROLE…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com rt/8.5 s/Approved rs/Yes r/SoftwareEngineer` |
+| **[Clear](#clearing-all-entries--clear)**                   | `clear`                                                                                                                                                                                     |
+| **[Delete](#deleting-a-person--delete)**                    | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                         |
+| **[Edit](#editing-a-person--edit)**                         | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com rt/9.0`                         |
+| **[Filter](#filtering-persons-by-rating-or-status-filter)** | `filter [rt/RATING_FILTER] [s/STATUS]` <br> e.g., `filter rt/ >= 7 s/Interviewing`                                                                                                          |
+| **[Find](#locating-persons-by-name-find)**                  | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                  |
+| **[List](#listing-all-persons--list)**                      | `list`                                                                                                                                                                                      |
+| **[Sort](#sorting-persons-by-rating-sort)**                 | `sort rt/ORDER` <br> e.g., `sort rt/desc`                                                                                                                                                   |
+| **[Help](#viewing-help--help)**                             | `help`                                                                                                                                                                                      |
