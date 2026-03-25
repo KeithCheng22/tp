@@ -3,7 +3,7 @@ package seedu.hireshell.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.hireshell.model.person.Detail;
+import seedu.hireshell.model.person.Details;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Person;
@@ -34,7 +34,7 @@ public class PersonBuilder {
     private Set<Role> roles;
     private Status status;
     private ReferralStatus referralStatus;
-    private Detail detail;
+    private Details details;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -47,7 +47,7 @@ public class PersonBuilder {
         roles = new HashSet<>();
         status = new Status(DEFAULT_STATUS);
         referralStatus = ReferralStatus.NOT_REFERRED;
-        detail = new Detail(DEFAULT_DETAIL);
+        details = new Details(DEFAULT_DETAIL);
     }
 
     /**
@@ -61,7 +61,7 @@ public class PersonBuilder {
         roles = new HashSet<>(personToCopy.getRoles());
         status = personToCopy.getStatus();
         referralStatus = personToCopy.getReferralStatus();
-        detail = personToCopy.getDetail();
+        details = personToCopy.getDetail();
     }
 
     /**
@@ -129,17 +129,17 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Detail} of the {@code Person} that we are building.
+     * Sets the {@code Details} of the {@code Person} that we are building.
      * @param detail
      * @return
      */
     public PersonBuilder withDetail(String detail) {
-        this.detail = new Detail(detail);
+        this.details = new Details(detail);
         return this;
     }
 
     public Person build() {
-        return new Person(name, phone, email, rating, status, roles, referralStatus, detail);
+        return new Person(name, phone, email, rating, status, roles, referralStatus, details);
     }
 
 }

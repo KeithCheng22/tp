@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.hireshell.commons.exceptions.IllegalValueException;
-import seedu.hireshell.model.person.Detail;
+import seedu.hireshell.model.person.Details;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Person;
@@ -134,12 +134,12 @@ class JsonAdaptedPerson {
         }
 
         if (detail == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Detail.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Details.class.getSimpleName()));
         }
-        if (!Detail.isValidDetail(detail)) {
-            throw new IllegalValueException(Detail.MESSAGE_CONSTRAINTS);
+        if (!Details.isValidDetail(detail)) {
+            throw new IllegalValueException(Details.MESSAGE_CONSTRAINTS);
         }
-        final Detail modelDetail = new Detail(detail);
+        final Details modelDetails = new Details(detail);
 
         try {
             modelReferralStatus = ReferralStatus.valueOf(referralStatus);
@@ -148,7 +148,7 @@ class JsonAdaptedPerson {
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelRating, modelStatus, modelRoles,
-                modelReferralStatus, modelDetail);
+                modelReferralStatus, modelDetails);
     }
 
 }

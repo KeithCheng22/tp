@@ -14,7 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.hireshell.logic.parser.exceptions.ParseException;
-import seedu.hireshell.model.person.Detail;
+import seedu.hireshell.model.person.Details;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Phone;
@@ -208,7 +208,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseDetail_validValueWithoutWhitespace_returnsName() throws Exception {
-        Detail expectedDetail = new Detail(VALID_DETAIL);
-        assertEquals(expectedDetail, ParserUtil.parseDetail(VALID_DETAIL));
+        Details expectedDetails = new Details(VALID_DETAIL);
+        assertEquals(expectedDetails, ParserUtil.parseDetail(VALID_DETAIL));
     }
 }

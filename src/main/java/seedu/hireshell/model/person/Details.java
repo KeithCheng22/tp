@@ -7,7 +7,7 @@ import static seedu.hireshell.commons.util.AppUtil.checkArgument;
  * Represents additional details in the address book.
  * Guarantees: is valid as declared in {@link #isValidDetail(String)}
  */
-public class Detail {
+public class Details {
     public static final String MESSAGE_CONSTRAINTS =
         "Description should only contain alphanumeric characters, spaces, and valid special symbols";
 
@@ -19,11 +19,11 @@ public class Detail {
     public final String fullDetails;
 
     /**
-     * Constructs a {@code Detail}.
+     * Constructs a {@code Details}.
      *
      * @param details A valid description.
      */
-    public Detail(String details) {
+    public Details(String details) {
         requireNonNull(details);
         checkArgument(isValidDetail(details), MESSAGE_CONSTRAINTS);
         fullDetails = details;
@@ -49,12 +49,12 @@ public class Detail {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Detail)) {
+        if (!(other instanceof Details)) {
             return false;
         }
 
-        Detail otherDetail = (Detail) other;
-        return fullDetails.equals(otherDetail.fullDetails);
+        Details otherDetails = (Details) other;
+        return fullDetails.equals(otherDetails.fullDetails);
     }
 
     @Override

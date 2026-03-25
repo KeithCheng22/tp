@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.hireshell.commons.exceptions.IllegalValueException;
-import seedu.hireshell.model.person.Detail;
+import seedu.hireshell.model.person.Details;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Phone;
@@ -164,7 +164,7 @@ public class JsonAdaptedPersonTest {
     public void toModelType_invalidDetail_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE,
                 VALID_EMAIL, VALID_RATING, VALID_STATUS, VALID_ROLES, VALID_REFERRAL_STATUS, INVALID_DETAIL);
-        String expectedMessage = Detail.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Details.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

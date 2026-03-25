@@ -11,54 +11,54 @@ public class DetailTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Detail(null));
+        assertThrows(NullPointerException.class, () -> new Details(null));
     }
 
     @Test
     public void constructor_invalidDetail_throwsIllegalArgumentException() {
         String invalidDetail = "<script>";
-        assertThrows(IllegalArgumentException.class, () -> new Detail(invalidDetail));
+        assertThrows(IllegalArgumentException.class, () -> new Details(invalidDetail));
     }
 
     @Test
     public void isValidDetail() {
-        // null Detail
-        assertThrows(NullPointerException.class, () -> Detail.isValidDetail(null));
+        // null Details
+        assertThrows(NullPointerException.class, () -> Details.isValidDetail(null));
 
-        // invalid Detail
-        assertFalse(Detail.isValidDetail("<>")); // banned symbols
-        assertFalse(Detail.isValidDetail("peter\\")); // contains banned symbols
+        // invalid Details
+        assertFalse(Details.isValidDetail("<>")); // banned symbols
+        assertFalse(Details.isValidDetail("peter\\")); // contains banned symbols
 
-        // valid Detail
-        assertTrue(Detail.isValidDetail("Met at career fair")); // alphabets only
-        assertTrue(Detail.isValidDetail("Last contacted on 12/02/26")); // numbers only
-        assertTrue(Detail.isValidDetail("Part of summer 2026 intake, last contact on 26/01/26")); // long Details
+        // valid Details
+        assertTrue(Details.isValidDetail("Met at career fair")); // alphabets only
+        assertTrue(Details.isValidDetail("Last contacted on 12/02/26")); // numbers only
+        assertTrue(Details.isValidDetail("Part of summer 2026 intake, last contact on 26/01/26")); // long Details
     }
 
     @Test
     public void equals() {
-        Detail detail = new Detail("Valid Detail");
+        Details details = new Details("Valid Details");
 
         // same values -> returns true
-        assertTrue(detail.equals(new Detail("Valid Detail")));
+        assertTrue(details.equals(new Details("Valid Details")));
 
         // same object -> returns true
-        assertTrue(detail.equals(detail));
+        assertTrue(details.equals(details));
 
         // null -> returns false
-        assertFalse(detail.equals(null));
+        assertFalse(details.equals(null));
 
         // different types -> returns false
-        assertFalse(detail.equals(5.0f));
+        assertFalse(details.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(detail.equals(new Detail("Other Valid Detail")));
+        assertFalse(details.equals(new Details("Other Valid Details")));
     }
 
     @Test
     public void validToString() {
-        Detail detail = new Detail("Valid Detail");
-        assertEquals(detail.toString(), "Valid Detail");
+        Details details = new Details("Valid Details");
+        assertEquals(details.toString(), "Valid Details");
     }
 
 }

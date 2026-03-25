@@ -23,7 +23,7 @@ import seedu.hireshell.commons.util.ToStringBuilder;
 import seedu.hireshell.logic.Messages;
 import seedu.hireshell.logic.commands.exceptions.CommandException;
 import seedu.hireshell.model.Model;
-import seedu.hireshell.model.person.Detail;
+import seedu.hireshell.model.person.Details;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Person;
@@ -111,10 +111,10 @@ public class EditCommand extends Command {
         Set<Role> updatedRoles = editPersonDescriptor.getRoles().orElse(personToEdit.getRoles());
         ReferralStatus updatedReferralStatus = editPersonDescriptor.getReferralStatus()
                 .orElse(personToEdit.getReferralStatus());
-        Detail updatedDetail = editPersonDescriptor.getDetail().orElse(personToEdit.getDetail());
+        Details updatedDetails = editPersonDescriptor.getDetail().orElse(personToEdit.getDetail());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedRating, updatedStatus, updatedRoles,
-                updatedReferralStatus, updatedDetail);
+                updatedReferralStatus, updatedDetails);
     }
 
     @Override
@@ -153,7 +153,7 @@ public class EditCommand extends Command {
         private Set<Role> roles;
         private Rating rating;
         private ReferralStatus referralStatus;
-        private Detail detail;
+        private Details details;
 
         public EditPersonDescriptor() {}
 
@@ -169,7 +169,7 @@ public class EditCommand extends Command {
             setStatus(toCopy.status);
             setRoles(toCopy.roles);
             setReferralStatus(toCopy.referralStatus);
-            setDetail(toCopy.detail);
+            setDetail(toCopy.details);
         }
 
         /**
@@ -219,12 +219,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(status);
         }
 
-        public void setDetail(Detail detail) {
-            this.detail = detail;
+        public void setDetail(Details details) {
+            this.details = details;
         }
 
-        public Optional<Detail> getDetail() {
-            return Optional.ofNullable(detail);
+        public Optional<Details> getDetail() {
+            return Optional.ofNullable(details);
         }
 
         /**
@@ -271,7 +271,7 @@ public class EditCommand extends Command {
                     && Objects.equals(status, otherEditPersonDescriptor.status)
                     && Objects.equals(roles, otherEditPersonDescriptor.roles)
                     && Objects.equals(referralStatus, otherEditPersonDescriptor.referralStatus)
-                    && Objects.equals(detail, otherEditPersonDescriptor.detail);
+                    && Objects.equals(details, otherEditPersonDescriptor.details);
         }
 
         @Override
@@ -284,7 +284,7 @@ public class EditCommand extends Command {
                     .add("status", status)
                     .add("referralStatus", referralStatus)
                     .add("roles", roles)
-                    .add("detail", detail)
+                    .add("details", details)
                     .toString();
         }
     }
