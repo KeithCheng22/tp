@@ -22,7 +22,7 @@ public class PersonMatchesFiltersPredicateTest {
 
         Person personWithRating7 = new Person(new Name("Alice"), new Phone("12345678"),
                 new Email("alice@example.com"), new Rating("7.0"), new Status("Applied"),
-                new HashSet<>(), ReferralStatus.fromString("yes"));
+                new HashSet<>(), ReferralStatus.fromString("yes"), new Details("valid details"));
         assertTrue(predicate.test(personWithRating7));
 
         // GREATER_THAN
@@ -32,7 +32,7 @@ public class PersonMatchesFiltersPredicateTest {
         assertFalse(predicate.test(personWithRating7));
         Person personWithRating8 = new Person(new Name("Bob"), new Phone("87654321"),
                 new Email("bob@example.com"), new Rating("8.5"), new Status("Applied"),
-                new HashSet<>(), ReferralStatus.fromString("yes"));
+                new HashSet<>(), ReferralStatus.fromString("yes"), new Details("valid details"));
         assertTrue(predicate.test(personWithRating8));
 
         // LESS_THAN
@@ -41,7 +41,7 @@ public class PersonMatchesFiltersPredicateTest {
                 null);
         Person personWithRating4 = new Person(new Name("Charlie"), new Phone("11111111"),
                 new Email("charlie@example.com"), new Rating("4.5"), new Status("Applied"),
-                new HashSet<>(), ReferralStatus.fromString("yes"));
+                new HashSet<>(), ReferralStatus.fromString("yes"), new Details("valid details"));
         assertTrue(predicate.test(personWithRating4));
         assertFalse(predicate.test(personWithRating7));
 
@@ -51,7 +51,7 @@ public class PersonMatchesFiltersPredicateTest {
                 null);
         Person personWithRating5 = new Person(new Name("David"), new Phone("22222222"),
                 new Email("david@example.com"), new Rating("5.0"), new Status("Applied"),
-                new HashSet<>(), ReferralStatus.fromString("yes"));
+                new HashSet<>(), ReferralStatus.fromString("yes"), new Details("valid details"));
         assertTrue(predicate.test(personWithRating5));
         assertTrue(predicate.test(personWithRating4));
 
@@ -71,12 +71,12 @@ public class PersonMatchesFiltersPredicateTest {
 
         Person personInterviewing = new Person(new Name("Alice"), new Phone("12345678"),
                 new Email("alice@example.com"), new Rating("7.0"), new Status("Interviewing"),
-                new HashSet<>(), ReferralStatus.fromString("yes"));
+                new HashSet<>(), ReferralStatus.fromString("yes"), new Details("valid details"));
         assertTrue(predicate.test(personInterviewing));
 
         Person personApplied = new Person(new Name("Bob"), new Phone("87654321"),
                 new Email("bob@example.com"), new Rating("8.5"), new Status("Applied"),
-                new HashSet<>(), ReferralStatus.fromString("yes"));
+                new HashSet<>(), ReferralStatus.fromString("yes"), new Details("valid details"));
         assertFalse(predicate.test(personApplied));
     }
 
@@ -88,12 +88,12 @@ public class PersonMatchesFiltersPredicateTest {
 
         Person personRejectedPoorRating = new Person(new Name("Alice"), new Phone("12345678"),
                 new Email("alice@example.com"), new Rating("4.5"), new Status("Rejected"),
-                new HashSet<>(), ReferralStatus.fromString("yes"));
+                new HashSet<>(), ReferralStatus.fromString("yes"), new Details("valid details"));
         assertTrue(predicate.test(personRejectedPoorRating));
 
         Person personRejectedGoodRating = new Person(new Name("Bob"), new Phone("87654321"),
                 new Email("bob@example.com"), new Rating("8.5"), new Status("Rejected"),
-                new HashSet<>(), ReferralStatus.fromString("yes"));
+                new HashSet<>(), ReferralStatus.fromString("yes"), new Details("valid details"));
         assertFalse(predicate.test(personRejectedGoodRating));
     }
 
