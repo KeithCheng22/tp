@@ -61,6 +61,7 @@ public class BatchEditCommand extends Command {
         List<Person> personsToEdit = new ArrayList<>(model.getFilteredPersonList());
 
         if (personsToEdit.isEmpty()) {
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             throw new CommandException(MESSAGE_NO_PERSONS_MATCHED);
         }
 

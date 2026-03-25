@@ -42,6 +42,7 @@ public class BatchDeleteCommand extends Command {
         List<Person> personsToDelete = new ArrayList<>(model.getFilteredPersonList());
 
         if (personsToDelete.isEmpty()) {
+            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
             throw new CommandException(MESSAGE_NO_PERSONS_MATCHED);
         }
 
