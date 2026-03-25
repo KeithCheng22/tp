@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -46,12 +47,35 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+        <SplitPane dividerPositions="0.6" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+          <items>
+
+            <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+
+            <StackPane fx:id="personDetailedViewPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+
+              <VBox alignment="TOP_LEFT" spacing="5">
+                <Label fx:id="detailedViewHeader"
+                       text="[DETAILED VIEW: No one is selected]"
+                       styleClass="detailed-view-header" />
+                <Label fx:id="detailedViewBody"
+                       text="Please select a candidate from the list above to view their information."
+                       styleClass="detailed-view-body"
+                       wrapText="true" />
+              </VBox>
+
+            </StackPane>
+
+          </items>
+        </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

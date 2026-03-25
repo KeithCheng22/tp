@@ -26,12 +26,13 @@ public class Person {
     private final Status status;
     private final Set<Role> roles = new HashSet<>();
     private final ReferralStatus referralStatus;
+    private final Details details;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Rating rating, Status status, Set<Role> roles,
-                  ReferralStatus referralStatus) {
+                  ReferralStatus referralStatus, Details details) {
         requireAllNonNull(name, phone, email, status, roles, referralStatus);
         this.name = name;
         this.phone = phone;
@@ -40,6 +41,7 @@ public class Person {
         this.status = status;
         this.roles.addAll(roles);
         this.referralStatus = referralStatus;
+        this.details = details;
     }
 
     public Name getName() {
@@ -74,8 +76,12 @@ public class Person {
         return referralStatus;
     }
 
+    public Details getDetails() {
+        return details;
+    }
+
     /**
-     * Returns true if both persons have the same name.
+     * Returns true if both persons have the same name and phone number
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {

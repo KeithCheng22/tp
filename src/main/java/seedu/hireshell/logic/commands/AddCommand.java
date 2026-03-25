@@ -1,6 +1,7 @@
 package seedu.hireshell.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_DETAILS;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -27,7 +28,7 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_RATING + "RATING "
+            + "[" + PREFIX_RATING + "RATING] "
             + PREFIX_STATUS + "STATUS "
             + PREFIX_REFERRAL_STATUS + "REFERRAL_STATUS "
             + "[" + PREFIX_ROLE + "ROLE]...\n"
@@ -38,6 +39,7 @@ public class AddCommand extends Command {
             + PREFIX_RATING + "8.5 "
             + PREFIX_STATUS + "Approved "
             + PREFIX_REFERRAL_STATUS + "Yes "
+            + PREFIX_DETAILS + "Met at career fair "
             + PREFIX_ROLE + "SoftwareEngineer "
             + PREFIX_ROLE + "QuantitativeResearcher";
 

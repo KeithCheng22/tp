@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -16,6 +17,7 @@ import seedu.hireshell.logic.Logic;
 import seedu.hireshell.logic.commands.CommandResult;
 import seedu.hireshell.logic.commands.exceptions.CommandException;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
+import seedu.hireshell.model.person.Person;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -49,6 +51,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private Label detailedViewHeader;
+
+    @FXML
+    private Label detailedViewBody;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -110,7 +118,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), this::updateDetailedView);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -121,6 +129,31 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        updateDetailedView(null, 0);
+    }
+
+    /**
+     * Updates the Detailed View panel with the selected person's details.
+     * Pass null if no one is selected.
+     */
+    private void updateDetailedView(Person person, Integer index) {
+        if (person == null) {
+            detailedViewHeader.setText("[DETAILED VIEW: No one is selected]");
+            detailedViewBody.setText("Please select a candidate from the list above to view their information.");
+        } else {
+            detailedViewHeader.setText(String.format("[DETAILED VIEW: Selected #%d %s]", index,
+                    person.getName().toString()));
+
+            String rolesString = person.getRoles().stream()
+                    .map(role -> role.roleName)
+                    .collect(java.util.stream.Collectors.joining(", "));
+
+            detailedViewBody.setText("Information about " + person.getName().toString() + "\n"
+                    + "Role: " + rolesString + "\n"
+                    + "Contact: " + person.getPhone().toString() + "\n"
+                    + "Rating: " + person.getRating().toString() + "\n"
+                    + "Details: " + person.getDetails().toString());
+        }
     }
 
     /**

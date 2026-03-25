@@ -23,6 +23,7 @@ import seedu.hireshell.commons.util.ToStringBuilder;
 import seedu.hireshell.logic.Messages;
 import seedu.hireshell.logic.commands.exceptions.CommandException;
 import seedu.hireshell.model.Model;
+import seedu.hireshell.model.person.Details;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Person;
@@ -110,9 +111,10 @@ public class EditCommand extends Command {
         Set<Role> updatedRoles = editPersonDescriptor.getRoles().orElse(personToEdit.getRoles());
         ReferralStatus updatedReferralStatus = editPersonDescriptor.getReferralStatus()
                 .orElse(personToEdit.getReferralStatus());
+        Details updatedDetails = editPersonDescriptor.getDetails().orElse(personToEdit.getDetails());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedRating, updatedStatus, updatedRoles,
-                updatedReferralStatus);
+                updatedReferralStatus, updatedDetails);
     }
 
     @Override
@@ -151,6 +153,7 @@ public class EditCommand extends Command {
         private Set<Role> roles;
         private Rating rating;
         private ReferralStatus referralStatus;
+        private Details details;
 
         public EditPersonDescriptor() {}
 
@@ -166,13 +169,14 @@ public class EditCommand extends Command {
             setStatus(toCopy.status);
             setRoles(toCopy.roles);
             setReferralStatus(toCopy.referralStatus);
+            setDetails(toCopy.details);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, rating, status, roles, referralStatus);
+            return CollectionUtil.isAnyNonNull(name, phone, email, rating, status, roles, referralStatus, details);
         }
 
         public void setName(Name name) {
@@ -213,6 +217,14 @@ public class EditCommand extends Command {
 
         public Optional<Status> getStatus() {
             return Optional.ofNullable(status);
+        }
+
+        public void setDetails(Details details) {
+            this.details = details;
+        }
+
+        public Optional<Details> getDetails() {
+            return Optional.ofNullable(details);
         }
 
         /**
@@ -258,7 +270,8 @@ public class EditCommand extends Command {
                     && Objects.equals(rating, otherEditPersonDescriptor.rating)
                     && Objects.equals(status, otherEditPersonDescriptor.status)
                     && Objects.equals(roles, otherEditPersonDescriptor.roles)
-                    && Objects.equals(referralStatus, otherEditPersonDescriptor.referralStatus);
+                    && Objects.equals(referralStatus, otherEditPersonDescriptor.referralStatus)
+                    && Objects.equals(details, otherEditPersonDescriptor.details);
         }
 
         @Override
@@ -269,8 +282,9 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("rating", rating)
                     .add("status", status)
-                    .add("roles", roles)
                     .add("referralStatus", referralStatus)
+                    .add("roles", roles)
+                    .add("details", details)
                     .toString();
         }
     }

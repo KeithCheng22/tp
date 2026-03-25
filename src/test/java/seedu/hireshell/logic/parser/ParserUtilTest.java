@@ -14,6 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.hireshell.logic.parser.exceptions.ParseException;
+import seedu.hireshell.model.person.Details;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Phone;
@@ -26,6 +27,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_ROLE = "#friend";
+    private static final String INVALID_DETAIL = "<\\Bad";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +35,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_ROLE_1 = "friend";
     private static final String VALID_ROLE_2 = "neighbour";
+    private static final String VALID_DETAIL = "Met at career fair";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -192,5 +195,20 @@ public class ParserUtilTest {
         Set<Role> expectedRoleSet = new HashSet<Role>(Arrays.asList(new Role(VALID_ROLE_1), new Role(VALID_ROLE_2)));
 
         assertEquals(expectedRoleSet, actualRoleSet);
+    }
+
+    public void parseDetail_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDetail((String) null));
+    }
+
+    @Test
+    public void parseDetail_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDetail(INVALID_DETAIL));
+    }
+
+    @Test
+    public void parseDetail_validValueWithoutWhitespace_returnsName() throws Exception {
+        Details expectedDetails = new Details(VALID_DETAIL);
+        assertEquals(expectedDetails, ParserUtil.parseDetail(VALID_DETAIL));
     }
 }

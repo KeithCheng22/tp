@@ -277,8 +277,8 @@ _{Explain here how the data archiving feature will be implemented}_
 * Meets a lot of new people daily
 * Has a large number of contacts with a short lifecycle
 * Enjoys using keyboard shortcuts
-* Needs to categorise their contacts 
-* Works in an office, uses a desktop 
+* Needs to categorise their contacts
+* Works in an office, uses a desktop
 * Values efficiency and speed over user interface 
 * Frequently performs batch operations (e.g. deleting a whole group)
 
@@ -481,7 +481,7 @@ Use case resumes from step 4.
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Private contact details**: A contact details that is not meant to be shared with others
 * **Candidate**: An individual whose contact details and hiring status are being tracked in the system.
 * **CLI (Command Line Interface)**: The primary text-based input method used by the Talent Scout to interact with the application without using a mouse.
 * **Auto-completion**: A productivity feature where the user presses the Tab key to have the system suggest or finish a command or parameter, reducing typing effort.

@@ -350,3 +350,20 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.table-view .column-header .label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+}
+
+.detailed-view-header {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.detailed-view-body {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}

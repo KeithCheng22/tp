@@ -6,7 +6,23 @@ pageNav: 3
 
 # HireShell
 
-HireShell is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+HireShell is a **desktop contact management application** designed for **Job Recruiters** who prefer **speed and efficiency**
+in managing (e.g. adding, deleting, editing) a large number of applicant contacts. It combines a Command Line Interface
+(CLI) with the clarity of a Graphical User Interface (GUI).
+
+If you are a Job Recruiter and are comfortable typing commands fast, HireShell helps you to organise, categorise and
+filter applicant contacts quickly, with minimal use of a mouse.
+
+Instead of clicking through multiple menus, you can perform all actions using simple, structured commands.
+This lets you manage and review applicants more efficiently once you are familiar with the command format.
+
+**What you can expect**\
+In this guide, you will find:
+- A [Quick Start](#quick-start) section to get the app running
+- An overview of the user interface
+- Step-by-step instructions for using commands
+- Examples to help you learn faster
+- Troubleshooting tips
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -15,20 +31,34 @@ HireShell is a **desktop app for managing contacts, optimized for use via a  Lin
 
 ## Quick Start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+1. Ensure you have Java `17` or above installed in your computer.<br>
+   **Mac users:** Follow the setup guide [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-2. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103T-T10-3/tp/releases).
+2. Download the latest `hireshell.jar` file from [here](https://github.com/AY2526S2-CS2103T-T10-3/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Create a folder (e.g. named **HireShell**).
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar hireshell.jar` command to run the application.<br>
+4. Move the `hireshell.jar` file into this folder.
 
+5. Open a command terminal and navigate to the **HireShell** folder.
+   - **Windows:** Use Command Prompt or PowerShell
+   - **Mac/Linux:** Use Terminal
 
-A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+Example:
+```bash
+cd path/to/HireShell
+```
+
+6. Run the application using the following command:
+```
+java -jar hireshell.jar
+```
+
+7. If the setup is successful, the HireShell GUI (see below) should appear in a few seconds. \
+_**Note that the app contains sample data.**_<br> \
 ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+8. Type the command in the command box and press `Enter` to execute it. e.g. typing **`help`** and pressing `Enter` will open the help window.<br> \
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -41,7 +71,7 @@ A GUI similar to the below should appear in a few seconds. Note how the app cont
 
    * `exit` : Exits the app.
 
-6. Refer to the [Features](#features) below for details of each command.
+9. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -82,7 +112,7 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add  n/NAME p/PHONE e/EMAIL rt/RATING s/STATUS rs/REFERRAL_STATUS [r/ROLE]…​`
+Format: `add  n/NAME p/PHONE e/EMAIL [rt/RATING] s/STATUS rs/REFERRAL_STATUS [r/ROLE] [d/DETAIL]…​`
 
 <box type="tip" seamless>
 
@@ -90,8 +120,10 @@ Format: `add  n/NAME p/PHONE e/EMAIL rt/RATING s/STATUS rs/REFERRAL_STATUS [r/RO
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com rt/8.5 s/Approved rs/Yes`
+* `add n/John Doe p/98765432 e/johnd@example.com s/Approved rs/Yes`
 * `add n/Betsy Crowe e/betsycrowe@example.com rt/9 s/Fresh rs/Yes p/91234567 r/SoftwareEngineer r/QuantitativeResearcher`
+* `add n/Alex Yeoh p/12345678 e/alexy@example.com s/Approved rs/Yes d/Met at career fair`
+
 
 ### Listing all persons : `list`
 
@@ -103,7 +135,7 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE] [d/DETAIL]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -134,6 +166,36 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+### Filtering persons by rating or status: `filter`
+
+Filters persons whose rating and/or status match the specified criteria.
+
+Format: `filter [rt/RATING_FILTER] [s/STATUS]`
+
+* At least one of the optional fields must be provided.
+* `RATING_FILTER` can include a comparison operator (`>`, `>=`, `<`, `<=`, `==`) followed by a number. If no operator is provided, `==` is assumed.
+* `STATUS` matches the status field of the person (case-insensitive).
+* If both rating and status are provided, only persons matching both criteria will be shown.
+
+Examples:
+* `filter rt/ >= 7` returns persons with a rating of 7.0 or higher.
+* `filter s/Interviewing` returns persons whose status is "Interviewing".
+* `filter rt/ < 5 s/Rejected` returns persons with a rating less than 5.0 and a status of "Rejected".
+
+### Sorting persons by rating: `sort`
+
+Sorts the currently displayed list of persons by their rating.
+
+Format: `sort rt/ORDER`
+
+* `ORDER` must be either `asc` (for ascending order) or `desc` (for descending order).
+* `asc` sorts persons from the lowest rating to the highest.
+* `desc` sorts persons from the highest rating to the lowest.
+
+Examples:
+* `sort rt/asc`
+* `sort rt/desc`
+
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
@@ -148,6 +210,40 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Batch deleting persons : `batch delete`
+
+Deletes all persons in the address book whose attributes match the specified condition(s). You can specify conditions based on status, roles, and a mathematical rating comparison.
+
+Format: `batch delete [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION]`
+
+* Deletes everyone matching **ALL** provided conditions.
+* At least one condition must be specified.
+* `RATING_CONDITION` must start with a valid mathematical operator (`<`, `<=`, `>`, `>=`, `==`) followed immediately by the rating value (e.g., `< 3.0` or `>= 5`).
+* If multiple roles are provided, it will find persons who have **all** the listed roles.
+
+Examples:
+* `batch delete s/REJECTED` deletes all persons with a status of REJECTED.
+* `batch delete rt/< 3.0` deletes all persons whose rating is strictly less than 3.0.
+* `batch delete s/APPLIED rt/<= 2.0 r/Intern` deletes all persons applying for an Intern role, currently APPLIED, and having a rating of 2.0 or lower.
+
+### Batch editing persons : `batch edit`
+
+Edits all persons in the address book whose attributes match the specified condition(s). The input is separated by the `to` keyword, where the left side dictates the filters and the right side dictates the edits to apply.
+
+Format: `batch edit [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION] to [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]...`
+
+* Edits everyone matching **ALL** the filter conditions specified on the left of `to`.
+* Applies the exact exact new values provided on the right of `to`.
+* The rating condition works exactly as it does in `batch delete`.
+* At least one condition must be provided on the left side, and at least one edit field must be provided on the right side.
+* If a person is updated in a way that causes their details to exactly match an already existing person (ignoring roles/statuses), an error will be thrown to prevent duplicate persons.
+
+Examples:
+* `batch edit r/Intern to s/REJECTED` changes the status to REJECTED for all persons who have the "Intern" role.
+* `batch edit s/APPLIED to rt/5.0` sets the rating to 5.0 for everyone who currently has an APPLIED status.
+* `batch edit rt/< 3.0 s/APPLIED to s/REJECTED rt/0.0 rs/Unsuccessful` finds anyone who is APPLIED with a rating < 3.0, and simultaneously changes their status to REJECTED, rating to 0.0, and referral status to Unsuccessful.
+* `batch edit r/Frontend rt/> 8.0 to r/Frontend Lead s/INTERVIEWED` finds anyone with a Frontend role and a rating > 8.0, and updates their role to Frontend Lead and status to INTERVIEWED.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -159,6 +255,20 @@ Format: `clear`
 Exits the program.
 
 Format: `exit`
+
+### Exporting data : `export`
+
+Exports all contact data from the address book into a CSV file format, which can be opened in spreadsheet applications like Microsoft Excel or Google Sheets.
+
+Format: `export`
+
+* The command exports the entire list of persons currently stored in the address book.
+* Extraneous parameters for this command (e.g., `export 123`) will be ignored.
+* The data is typically saved in the same directory where the application is located.
+
+Example:
+* `export`
+
 
 ### Saving the data
 
@@ -183,8 +293,23 @@ _Details coming soon ..._
 
 ## FAQ
 
+**Q**: Is my data saved automatically?<br>
+**A**: Yes, HireShell saves your data automatically. There is no need to manually save!
+
+**Q**: Is my data safe?<br>
+**A**: Yes! Your data is stored locally in the data folder. This ensures that sensitive information will not be leaked!
+
+**Q**: Why is HireShell not starting for me?<br>
+**A**: Ensure that you have [Java 17](#quick-start) installed on your computer. Enter `java -version` in your system terminal to check the version that you have!
+
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HireShell home folder.
+
+**Q**: How do I export my data?<br>
+**A**: Data can be exported using the command `export`, which creates a `.csv` file.
+
+**Q**: How do I import my data?<br>
+**A**: This feature has not been implemented yet, but will be in subsequent versions.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -197,12 +322,17 @@ _Details coming soon ..._
 
 ## Command summary
 
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL rt/RATING s/STATUS rs/REFERRAL_STATUS r/ROLE…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com rt/8.5 s/Approved rs/Yes r/SoftwareEngineer`
-**Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com rt/9.0`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
-**Help**   | `help`
+| Action                                               | Format, Examples                                                                                                                                                                            |
+|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **[Add](#adding-a-person-add)**                      | `add n/NAME p/PHONE_NUMBER e/EMAIL rt/RATING s/STATUS rs/REFERRAL_STATUS r/ROLE…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com rt/8.5 s/Approved rs/Yes r/SoftwareEngineer` |
+| **[Batch Delete](#batch-deleting-persons-batch-delete)** | `batch delete [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION]`<br> e.g., `batch delete rt/< 3.0 s/REJECTED`                                                                                    |
+| **[Batch Edit](#batch-editing-persons-batch-edit)**  | `batch edit [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION] to [EDIT_FIELDS]`<br> e.g., `batch edit r/Intern to s/REJECTED`                                                                    |
+| **[Clear](#clearing-all-entries-clear)**             | `clear`                                                                                                                                                                                     |
+| **[Delete](#deleting-a-person-delete)**              | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                         |
+| **[Edit](#editing-a-person-edit)**                   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com rt/9.0`                         |
+| **[Filter](#filtering-persons-by-rating-or-status-filter)** | `filter [rt/RATING_FILTER] [s/STATUS]` <br> e.g., `filter rt/ >= 7 s/Interviewing`                                                                                                          |
+| **[Find](#locating-persons-by-name-find)**           | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                  |
+| **[List](#listing-all-persons-list)**                | `list`                                                                                                                                                                                      |
+| **[Sort](#sorting-persons-by-rating-sort)**          | `sort rt/ORDER` <br> e.g., `sort rt/desc`                                                                                                                                                   |
+| **[Help](#viewing-help-help)**                       | `help`                                                                                                                                                                                      |
+| **[Export](#exporting-data-export)**                        | `export`                                                                                                                                                                                    |
