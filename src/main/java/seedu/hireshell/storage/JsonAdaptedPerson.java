@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.hireshell.commons.exceptions.IllegalValueException;
+import seedu.hireshell.model.person.Details;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Person;
@@ -33,6 +34,7 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedRole> roles = new ArrayList<>();
     private final String status;
     private final String referralStatus;
+    private final String detail;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -42,12 +44,14 @@ class JsonAdaptedPerson {
             @JsonProperty("email") String email, @JsonProperty("rating") String rating,
                              @JsonProperty("status") String status,
                              @JsonProperty("roles") List<JsonAdaptedRole> roles,
-                             @JsonProperty("referralStatus") String referralStatus) {
+                             @JsonProperty("referralStatus") String referralStatus,
+                             @JsonProperty("detail") String detail) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.rating = rating;
         this.status = status;
+        this.detail = detail;
         if (roles != null) {
             this.roles.addAll(roles);
         }
@@ -67,6 +71,7 @@ class JsonAdaptedPerson {
                 .map(JsonAdaptedRole::new)
                 .collect(Collectors.toList()));
         referralStatus = source.getReferralStatus().name();
+        detail = source.getDetails().fullDetails;
     }
 
     /**
@@ -127,13 +132,23 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ReferralStatus.class.getSimpleName()));
         }
+
+        if (detail == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Details.class.getSimpleName()));
+        }
+        if (!Details.isValidDetail(detail)) {
+            throw new IllegalValueException(Details.MESSAGE_CONSTRAINTS);
+        }
+        final Details modelDetails = new Details(detail);
+
         try {
             modelReferralStatus = ReferralStatus.valueOf(referralStatus);
         } catch (IllegalArgumentException e) {
             throw new IllegalValueException(ReferralStatus.MESSAGE_CONSTRAINTS);
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelRating, modelStatus, modelRoles, modelReferralStatus);
+        return new Person(modelName, modelPhone, modelEmail, modelRating, modelStatus, modelRoles,
+                modelReferralStatus, modelDetails);
     }
 
 }

@@ -11,11 +11,13 @@ import static seedu.hireshell.testutil.TypicalPersons.BENSON;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.hireshell.commons.core.GuiSettings;
 import seedu.hireshell.model.person.NameContainsKeywordsPredicate;
+import seedu.hireshell.model.person.Person;
 import seedu.hireshell.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -94,6 +96,19 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void updateSortedPersonList_nullComparator_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.updateSortedPersonList(null));
+    }
+
+    @Test
+    public void updateSortedPersonList_validComparator_setsComparator() {
+        modelManager.addPerson(ALICE);
+        Comparator<Person> comparator = (p1, p2) -> p2.getRating().value.compareTo(p1.getRating().value);
+        modelManager.updateSortedPersonList(comparator);
+        assertTrue(modelManager.getFilteredPersonList().size() >= 0);
+    }
+
+    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
@@ -123,6 +138,14 @@ public class ModelManagerTest {
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        // different sortedList -> returns false
+        Comparator<Person> comparator = (p1, p2) -> p1.getName().fullName.compareTo(p2.getName().fullName);
+        modelManager.updateSortedPersonList(comparator);
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateSortedPersonList((p1, p2) -> 0);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.hireshell.commons.core.index.Index;
 import seedu.hireshell.commons.util.StringUtil;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
+import seedu.hireshell.model.person.Details;
 import seedu.hireshell.model.person.Email;
 import seedu.hireshell.model.person.Name;
 import seedu.hireshell.model.person.Phone;
@@ -160,5 +161,22 @@ public class ParserUtil {
         }
 
         return ReferralStatus.fromString(trimmedReferralStatus);
+    }
+
+    /**
+     * Parses a {@code String detail} into a {@code Details}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code role} is invalid.
+     */
+    public static Details parseDetail(String detail) throws ParseException {
+        requireNonNull(detail);
+        String trimmedDetail = detail.trim();
+
+        if (!Details.isValidDetail(trimmedDetail)) {
+            throw new ParseException(Details.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Details(detail);
     }
 }

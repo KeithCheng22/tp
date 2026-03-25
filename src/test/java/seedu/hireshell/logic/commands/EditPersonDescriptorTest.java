@@ -65,9 +65,10 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", rating="
                 + editPersonDescriptor.getRating().orElse(null) + ", status="
-                + editPersonDescriptor.getStatus().orElse(null) + ", roles="
-                + editPersonDescriptor.getReferralStatus().orElse(null) + ", referralStatus="
-                + editPersonDescriptor.getRoles().orElse(null) + "}";
+                + editPersonDescriptor.getStatus().orElse(null) + ", referralStatus="
+                + editPersonDescriptor.getReferralStatus().orElse(null) + ", roles="
+                + editPersonDescriptor.getRoles().orElse(null) + ", details="
+                + editPersonDescriptor.getDetails().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

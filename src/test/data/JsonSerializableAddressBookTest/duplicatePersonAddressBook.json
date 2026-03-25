@@ -6,13 +6,15 @@
     "rating": "8.0",
     "status": "123, Jurong West Ave 6, #08-111",
     "roles": [ "friends" ],
-    "referralStatus": "REFERRED"
+    "referralStatus": "REFERRED",
+    "detail" : "Met at career fair"
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
     "rating": "3.0",
     "status": "4th street",
-    "referralStatus": "REFERRED"
+    "referralStatus": "REFERRED",
+    "detail" : "Met at career fair"
   } ]
 }

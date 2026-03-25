@@ -13,5 +13,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_STATUS = new Prefix("s/");
     public static final Prefix PREFIX_RATING = new Prefix("rt/");
     public static final Prefix PREFIX_REFERRAL_STATUS = new Prefix("rs/");
+    public static final Prefix PREFIX_DETAILS = new Prefix("d/");
 
 }
