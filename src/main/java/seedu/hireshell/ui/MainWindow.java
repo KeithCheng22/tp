@@ -15,7 +15,6 @@ import seedu.hireshell.commons.core.GuiSettings;
 import seedu.hireshell.commons.core.LogsCenter;
 import seedu.hireshell.logic.Logic;
 import seedu.hireshell.logic.commands.CommandResult;
-import seedu.hireshell.logic.commands.SelectCommand;
 import seedu.hireshell.logic.commands.exceptions.CommandException;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
 import seedu.hireshell.model.person.Person;
@@ -74,7 +73,12 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
-        SelectCommand.setOnPersonSelected(this::updateDetailedView);
+        logic.selectedPersonProperty().addListener((obs, oldPerson, newPerson) -> {
+            if (personListPanel != null) {
+                personListPanel.syncSelectionFromModel(newPerson);
+            }
+            refreshDetailedViewFromSelection(newPerson);
+        });
 
         helpWindow = new HelpWindow();
     }
@@ -121,7 +125,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), this::updateDetailedView);
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), (person, index) -> {
+            logic.setSelectedPerson(person);
+        });
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -228,5 +234,20 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void refreshDetailedViewFromSelection(Person selectedPerson) {
+        if (selectedPerson == null) {
+            updateDetailedView(null, 0);
+            return;
+        }
+
+        int index = logic.getFilteredPersonList().indexOf(selectedPerson) + 1;
+        if (index <= 0) {
+            updateDetailedView(null, 0);
+            return;
+        }
+
+        updateDetailedView(logic.getFilteredPersonList().get(index - 1), index);
     }
 }

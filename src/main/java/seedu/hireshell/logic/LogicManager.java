@@ -5,6 +5,7 @@ import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.hireshell.commons.core.GuiSettings;
 import seedu.hireshell.commons.core.LogsCenter;
@@ -84,5 +85,30 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    /**
+     * Updates the selectedPerson ObjectProperty to the given {@code person}.
+     * @param person the person being passed into selectedPerson
+     */
+    @Override
+    public void setSelectedPerson(Person person) {
+        model.setSelectedPerson(person);
+    }
+
+    /**
+     * Retrieves the Person in selectedPerson ObjectProperty.
+     */
+    @Override
+    public Person getSelectedPerson() {
+        return model.getSelectedPerson();
+    }
+
+    /**
+     * Retrieves the selectedPerson ObjectProperty.
+     */
+    @Override
+    public ReadOnlyObjectProperty<Person> selectedPersonProperty() {
+        return model.selectedPersonProperty();
     }
 }

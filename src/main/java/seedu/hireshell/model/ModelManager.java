@@ -9,6 +9,9 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -26,6 +29,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SortedList<Person> sortedPersons;
+    //set SelectedPerson in detailed view
+    private final ObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -100,6 +105,9 @@ public class ModelManager implements Model {
 
     @Override
     public void deletePerson(Person target) {
+        if (target.equals(selectedPerson.get())) {
+            selectedPerson.set(null);
+        }
         addressBook.removePerson(target);
     }
 
@@ -114,6 +122,9 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+        if (target.equals(selectedPerson.get())) {
+            selectedPerson.set(editedPerson);
+        }
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -131,6 +142,9 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+        if (selectedPerson.get() != null && !filteredPersons.contains(selectedPerson.get())) {
+            selectedPerson.set(null);
+        }
     }
 
     /**
@@ -141,6 +155,34 @@ public class ModelManager implements Model {
     public void updateSortedPersonList(Comparator<Person> comparator) {
         requireNonNull(comparator);
         sortedPersons.setComparator(comparator);
+        if (selectedPerson.get() != null && !filteredPersons.contains(selectedPerson.get())) {
+            selectedPerson.set(null);
+        }
+    }
+
+    /**
+     * Updates the selectedPerson ObjectProperty to the given {@code person}.
+     * @param person the person being passed into selectedPerson
+     */
+    @Override
+    public void setSelectedPerson(Person person) {
+        selectedPerson.set(person);
+    }
+
+    /**
+     * Retrieves the Person in selectedPerson ObjectProperty.
+     */
+    @Override
+    public Person getSelectedPerson() {
+        return selectedPerson.get();
+    }
+
+    /**
+     * Retrieves the selectedPerson ObjectProperty.
+     */
+    @Override
+    public ReadOnlyObjectProperty<Person> selectedPersonProperty() {
+        return selectedPerson;
     }
 
     @Override

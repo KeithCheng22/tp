@@ -26,19 +26,10 @@ public class SelectCommand extends Command {
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
 
-    private static BiConsumer<Person, Integer> onPersonSelected;
-
     private final Index targetIndex;
 
     public SelectCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
-    }
-
-    /**
-     * Registers the UI callback that updates the detailed view for a selected person.
-     */
-    public static void setOnPersonSelected(BiConsumer<Person, Integer> callback) {
-        onPersonSelected = callback;
     }
 
     @Override
@@ -51,10 +42,7 @@ public class SelectCommand extends Command {
         }
 
         Person personToSelect = lastShownList.get(targetIndex.getZeroBased());
-
-        if (onPersonSelected != null) {
-            onPersonSelected.accept(personToSelect, targetIndex.getOneBased());
-        }
+        model.setSelectedPerson(personToSelect);
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, Messages.format(personToSelect)));
     }
 

@@ -2,6 +2,7 @@ package seedu.hireshell.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.hireshell.commons.core.GuiSettings;
 import seedu.hireshell.logic.commands.CommandResult;
@@ -47,4 +48,8 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    void setSelectedPerson(Person person);
+    Person getSelectedPerson();
+    ReadOnlyObjectProperty<Person> selectedPersonProperty();
 }

@@ -115,7 +115,8 @@ public class Person {
                 && rating.equals(otherPerson.rating)
                 && status.equals(otherPerson.status)
                 && roles.equals(otherPerson.roles)
-                && referralStatus.equals(otherPerson.referralStatus);
+                && referralStatus.equals(otherPerson.referralStatus)
+                && details.equals(otherPerson.details);
     }
 
     @Override

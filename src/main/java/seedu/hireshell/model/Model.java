@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.hireshell.commons.core.GuiSettings;
 import seedu.hireshell.model.person.Person;
@@ -92,4 +93,13 @@ public interface Model {
      * @throws NullPointerException if {@code comparator} is null.
      */
     void updateSortedPersonList(Comparator<Person> comparator);
+
+    /** Sets the selected person in the UI domain state. */
+    void setSelectedPerson(Person person);
+
+    /** Returns the currently selected person, or null if none selected. */
+    Person getSelectedPerson();
+
+    /** Observable selected-person state for UI listeners. */
+    ReadOnlyObjectProperty<Person> selectedPersonProperty();
 }

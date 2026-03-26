@@ -42,6 +42,7 @@ public class PersonListPanel extends UiPart<Region> {
     private TableColumn<Person, String> referralColumn;
 
     private final BiConsumer<Person, Integer> onPersonSelected;
+    private boolean isSyncingSelection;
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
@@ -53,8 +54,17 @@ public class PersonListPanel extends UiPart<Region> {
         personTableView.setItems(personList);
 
         personTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (isSyncingSelection) {
+                return;
+            }
+
             int selectedIndex = personTableView.getSelectionModel().getSelectedIndex() + 1;
             logger.info("User clicked on candidate index: " + selectedIndex);
+
+            // Guard against transient deselection events during table refresh/edit.
+            if (newValue == null || selectedIndex <= 0) {
+                return;
+            }
 
             if (this.onPersonSelected != null) {
                 this.onPersonSelected.accept(newValue, selectedIndex);
@@ -118,5 +128,26 @@ public class PersonListPanel extends UiPart<Region> {
         roleColumn.prefWidthProperty().bind(dynamicColumnWidth);
         statusColumn.prefWidthProperty().bind(dynamicColumnWidth);
         emailColumn.prefWidthProperty().bind(dynamicColumnWidth);
+    }
+
+    public void syncSelectionFromModel(Person person) {
+        isSyncingSelection = true;
+        try {
+            if (person == null) {
+                personTableView.getSelectionModel().clearSelection();
+                return;
+            }
+
+            // If person is not visible in current filtered list, clear selection.
+            if (!personTableView.getItems().contains(person)) {
+                personTableView.getSelectionModel().clearSelection();
+                return;
+            }
+
+            personTableView.getSelectionModel().select(person);
+            personTableView.scrollTo(person);
+        } finally {
+            isSyncingSelection = false;
+        }
     }
 }
