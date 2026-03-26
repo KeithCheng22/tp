@@ -134,6 +134,7 @@ public class Person {
                 .add("status", status)
                 .add("roles", roles)
                 .add("referralStatus", referralStatus)
+                .add("details", details)
                 .toString();
     }
 }

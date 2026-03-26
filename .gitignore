@@ -16,6 +16,9 @@ src/main/resources/docs/
 hs_err_pid[0-9]*.log
 *.csv
 
+#bin folder
+/bin/
+
 # Test sandbox files
 src/test/data/sandbox/
 

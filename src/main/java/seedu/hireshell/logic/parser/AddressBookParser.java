@@ -19,6 +19,7 @@ import seedu.hireshell.logic.commands.FilterCommand;
 import seedu.hireshell.logic.commands.FindCommand;
 import seedu.hireshell.logic.commands.HelpCommand;
 import seedu.hireshell.logic.commands.ListCommand;
+import seedu.hireshell.logic.commands.SelectCommand;
 import seedu.hireshell.logic.commands.SortCommand;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
 
@@ -79,6 +80,9 @@ public class AddressBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -15,6 +15,7 @@ import seedu.hireshell.commons.core.GuiSettings;
 import seedu.hireshell.commons.core.LogsCenter;
 import seedu.hireshell.logic.Logic;
 import seedu.hireshell.logic.commands.CommandResult;
+import seedu.hireshell.logic.commands.SelectCommand;
 import seedu.hireshell.logic.commands.exceptions.CommandException;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
 import seedu.hireshell.model.person.Person;
@@ -72,6 +73,8 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
+
+        SelectCommand.setOnPersonSelected(this::updateDetailedView);
 
         helpWindow = new HelpWindow();
     }
