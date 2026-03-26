@@ -269,6 +269,21 @@ Format: `export`
 Example:
 * `export`
 
+### Selecting a person : `select`
+
+Selects the specified person from the address book to be displayed in a detailed view
+
+Format: `select INDEX`
+
+* Selects the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `select 2` selects the 2nd person in the address book and brings up a detailed view of the selected person
+* `find Betsy` followed by `select 1` selects the 1st person in the results of the `find` command.
+
+
 
 ### Saving the data
 
@@ -322,17 +337,18 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action                                               | Format, Examples                                                                                                                                                                            |
-|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **[Add](#adding-a-person-add)**                      | `add n/NAME p/PHONE_NUMBER e/EMAIL rt/RATING s/STATUS rs/REFERRAL_STATUS r/ROLE…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com rt/8.5 s/Approved rs/Yes r/SoftwareEngineer` |
-| **[Batch Delete](#batch-deleting-persons-batch-delete)** | `batch delete [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION]`<br> e.g., `batch delete rt/< 3.0 s/REJECTED`                                                                                    |
-| **[Batch Edit](#batch-editing-persons-batch-edit)**  | `batch edit [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION] to [EDIT_FIELDS]`<br> e.g., `batch edit r/Intern to s/REJECTED`                                                                    |
-| **[Clear](#clearing-all-entries-clear)**             | `clear`                                                                                                                                                                                     |
-| **[Delete](#deleting-a-person-delete)**              | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                         |
-| **[Edit](#editing-a-person-edit)**                   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com rt/9.0`                         |
+| Action                                                      | Format, Examples                                                                                                                                                                            |
+|-------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **[Add](#adding-a-person-add)**                             | `add n/NAME p/PHONE_NUMBER e/EMAIL rt/RATING s/STATUS rs/REFERRAL_STATUS r/ROLE…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com rt/8.5 s/Approved rs/Yes r/SoftwareEngineer` |
+| **[Batch Delete](#batch-deleting-persons-batch-delete)**    | `batch delete [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION]`<br> e.g., `batch delete rt/< 3.0 s/REJECTED`                                                                                    |
+| **[Batch Edit](#batch-editing-persons-batch-edit)**         | `batch edit [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION] to [EDIT_FIELDS]`<br> e.g., `batch edit r/Intern to s/REJECTED`                                                                    |
+| **[Clear](#clearing-all-entries-clear)**                    | `clear`                                                                                                                                                                                     |
+| **[Delete](#deleting-a-person-delete)**                     | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                         |
+| **[Edit](#editing-a-person-edit)**                          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com rt/9.0`                         |
 | **[Filter](#filtering-persons-by-rating-or-status-filter)** | `filter [rt/RATING_FILTER] [s/STATUS]` <br> e.g., `filter rt/ >= 7 s/Interviewing`                                                                                                          |
-| **[Find](#locating-persons-by-name-find)**           | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                  |
-| **[List](#listing-all-persons-list)**                | `list`                                                                                                                                                                                      |
-| **[Sort](#sorting-persons-by-rating-sort)**          | `sort rt/ORDER` <br> e.g., `sort rt/desc`                                                                                                                                                   |
-| **[Help](#viewing-help-help)**                       | `help`                                                                                                                                                                                      |
+| **[Find](#locating-persons-by-name-find)**                  | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                  |
+| **[List](#listing-all-persons-list)**                       | `list`                                                                                                                                                                                      |
+| **[Sort](#sorting-persons-by-rating-sort)**                 | `sort rt/ORDER` <br> e.g., `sort rt/desc`                                                                                                                                                   |
+| **[Help](#viewing-help-help)**                              | `help`                                                                                                                                                                                      |
 | **[Export](#exporting-data-export)**                        | `export`                                                                                                                                                                                    |
+| **[Select](#Selecting-a-person-select)**                    | `select INDEX`<br> e.g., `select 1`                                                                                                                                                          |
