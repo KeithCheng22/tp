@@ -54,30 +54,23 @@ public class PersonTest {
         editedBob = new PersonBuilder(BOB).withName(nameWithTrailingSpaces).build();
         assertFalse(BOB.isSamePerson(editedBob));
     }
+@Test
+public void metadata_behavior() {
+    // Constructor with 8 arguments: createdAt should be around LocalDateTime.now()
+    LocalDateTime before = LocalDateTime.now().minusSeconds(1);
+    Person person = new PersonBuilder().buildWithDefaultConstructor();
+    LocalDateTime after = LocalDateTime.now().plusSeconds(1);
 
-    @Test
-    public void metadata_behavior() {
-        // Constructor with 8 arguments: createdAt and updatedAt should be around LocalDateTime.now()
-        LocalDateTime before = LocalDateTime.now().minusSeconds(1);
-        Person person = new PersonBuilder().buildWithDefaultConstructor();
-        LocalDateTime after = LocalDateTime.now().plusSeconds(1);
+    assertTrue(person.getCreatedAt().isAfter(before) || person.getCreatedAt().isEqual(before));
+    assertTrue(person.getCreatedAt().isBefore(after) || person.getCreatedAt().isEqual(after));
 
-        assertTrue(person.getCreatedAt().isAfter(before) || person.getCreatedAt().isEqual(before));
-        assertTrue(person.getCreatedAt().isBefore(after) || person.getCreatedAt().isEqual(after));
-        assertTrue(person.getUpdatedAt().isAfter(before) || person.getUpdatedAt().isEqual(before));
-        assertTrue(person.getUpdatedAt().isBefore(after) || person.getUpdatedAt().isEqual(after));
+    // Constructor with 9 arguments: createdAt preserved
+    LocalDateTime fixedCreatedAt = LocalDateTime.of(2020, 1, 1, 12, 0);
+    Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getRating(),
+            person.getStatus(), person.getRoles(), person.getReferralStatus(), person.getDetails(), fixedCreatedAt);
 
-        // Constructor with 9 arguments: createdAt preserved, updatedAt should be around LocalDateTime.now()
-        LocalDateTime fixedCreatedAt = LocalDateTime.of(2020, 1, 1, 12, 0);
-        before = LocalDateTime.now().minusSeconds(1);
-        Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getRating(),
-                person.getStatus(), person.getRoles(), person.getReferralStatus(), person.getDetails(), fixedCreatedAt);
-        after = LocalDateTime.now().plusSeconds(1);
-
-        assertEquals(fixedCreatedAt, editedPerson.getCreatedAt());
-        assertTrue(editedPerson.getUpdatedAt().isAfter(before) || editedPerson.getUpdatedAt().isEqual(before));
-        assertTrue(editedPerson.getUpdatedAt().isBefore(after) || editedPerson.getUpdatedAt().isEqual(after));
-    }
+    assertEquals(fixedCreatedAt, editedPerson.getCreatedAt());
+}
 
     @Test
     public void equals() {
@@ -120,10 +113,6 @@ public class PersonTest {
         // different createdAt -> returns true
         editedAlice = new PersonBuilder(ALICE).withCreatedAt(ALICE.getCreatedAt().plusDays(1)).build();
         assertTrue(ALICE.equals(editedAlice));
-
-        // different updatedAt -> returns true
-        editedAlice = new PersonBuilder(ALICE).withUpdatedAt(ALICE.getUpdatedAt().plusDays(1)).build();
-        assertTrue(ALICE.equals(editedAlice));
     }
 
     @Test
@@ -132,7 +121,7 @@ public class PersonTest {
                 + ", email=" + ALICE.getEmail() + ", rating=" + ALICE.getRating()
                 + ", status=" + ALICE.getStatus() + ", roles=" + ALICE.getRoles() + ", referralStatus="
                 + ALICE.getReferralStatus() + ", details=" + ALICE.getDetails() + ", createdAt=" + ALICE.getCreatedAt()
-                + ", updatedAt=" + ALICE.getUpdatedAt() + "}";
+                + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

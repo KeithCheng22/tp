@@ -38,7 +38,6 @@ public class PersonBuilder {
     private ReferralStatus referralStatus;
     private Details details;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -53,7 +52,6 @@ public class PersonBuilder {
         referralStatus = ReferralStatus.NOT_REFERRED;
         details = new Details(DEFAULT_DETAIL);
         createdAt = DEFAULT_DATETIME;
-        updatedAt = DEFAULT_DATETIME;
     }
 
     /**
@@ -69,7 +67,6 @@ public class PersonBuilder {
         referralStatus = personToCopy.getReferralStatus();
         details = personToCopy.getDetails();
         createdAt = personToCopy.getCreatedAt();
-        updatedAt = personToCopy.getUpdatedAt();
     }
 
     /**
@@ -154,20 +151,12 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code updatedAt} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-        return this;
-    }
-
     public Person build() {
-        return new Person(name, phone, email, rating, status, roles, referralStatus, details, createdAt, updatedAt);
+        return new Person(name, phone, email, rating, status, roles, referralStatus, details, createdAt);
     }
 
     /**
-     * Builds a person using the default constructor (8-argument) which sets createdAt and updatedAt to now.
+     * Builds a person using the default constructor (8-argument) which sets createdAt to now.
      */
     public Person buildWithDefaultConstructor() {
         return new Person(name, phone, email, rating, status, roles, referralStatus, details);

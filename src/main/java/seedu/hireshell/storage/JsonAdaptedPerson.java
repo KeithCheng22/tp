@@ -39,7 +39,6 @@ class JsonAdaptedPerson {
     private final String detail;
 
     private final String createdAt;
-    private final String updatedAt;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -51,8 +50,7 @@ class JsonAdaptedPerson {
                              @JsonProperty("roles") List<JsonAdaptedRole> roles,
                              @JsonProperty("referralStatus") String referralStatus,
                              @JsonProperty("detail") String detail,
-                             @JsonProperty("createdAt") String createdAt,
-                             @JsonProperty("updatedAt") String updatedAt) {
+                             @JsonProperty("createdAt") String createdAt) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -64,7 +62,6 @@ class JsonAdaptedPerson {
         }
         this.referralStatus = referralStatus;
         this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     /**
@@ -82,7 +79,6 @@ class JsonAdaptedPerson {
         referralStatus = source.getReferralStatus().name();
         detail = source.getDetails().fullDetails;
         createdAt = source.getCreatedAt().toString();
-        updatedAt = source.getUpdatedAt().toString();
     }
 
     /**
@@ -164,20 +160,13 @@ class JsonAdaptedPerson {
         final LocalDateTime createdAt = LocalDateTime.parse(this.createdAt);
 
         try {
-            LocalDateTime.parse(updatedAt);
-        } catch (DateTimeParseException e) {
-            throw new IllegalValueException("Could not read LocalDateTime value");
-        }
-        final LocalDateTime updatedAt = LocalDateTime.parse(this.updatedAt);
-
-        try {
             modelReferralStatus = ReferralStatus.valueOf(referralStatus);
         } catch (IllegalArgumentException e) {
             throw new IllegalValueException(ReferralStatus.MESSAGE_CONSTRAINTS);
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelRating, modelStatus, modelRoles,
-                modelReferralStatus, modelDetails, createdAt, updatedAt);
+                modelReferralStatus, modelDetails, createdAt);
     }
 
 }
