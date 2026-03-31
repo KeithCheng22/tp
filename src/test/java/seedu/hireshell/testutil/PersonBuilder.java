@@ -146,8 +146,31 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code createdAt} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Sets the {@code updatedAt} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
     public Person build() {
         return new Person(name, phone, email, rating, status, roles, referralStatus, details, createdAt, updatedAt);
+    }
+
+    /**
+     * Builds a person using the default constructor (8-argument) which sets createdAt and updatedAt to now.
+     */
+    public Person buildWithDefaultConstructor() {
+        return new Person(name, phone, email, rating, status, roles, referralStatus, details);
     }
 
 }
