@@ -40,14 +40,14 @@
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
+        <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                   minFHeight="150">
           <padding>
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
 
-        <SplitPane dividerPositions="0.6" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+        <SplitPane dividerPositions="0.7" orientation="VERTICAL" VBox.vgrow="SOMETIMES">
           <items>
 
             <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340">
@@ -57,12 +57,15 @@
               <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
             </VBox>
 
-            <StackPane fx:id="personDetailedViewPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+            <StackPane fx:id="personDetailedViewPlaceholder"
+                       styleClass="pane-with-border"
+                       VBox.vgrow="ALWAYS"
+                       prefHeight="150">
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>
 
-              <VBox alignment="TOP_LEFT" spacing="5">
+              <VBox spacing="5">
                 <Label fx:id="detailedViewHeader"
                        text="[DETAILED VIEW: No one is selected]"
                        styleClass="detailed-view-header" />
