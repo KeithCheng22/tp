@@ -5,7 +5,6 @@ import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_RATING;
 
 import java.util.Comparator;
-import java.util.Objects;
 
 import seedu.hireshell.commons.util.ToStringBuilder;
 import seedu.hireshell.model.Model;

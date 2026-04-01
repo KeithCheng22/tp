@@ -17,9 +17,12 @@ public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters persons by their rating, status and/or date added.\n"
-            + "Parameters: [" + PREFIX_RATING + "RATING] [" + PREFIX_STATUS + "STATUS] [" + PREFIX_DATE + "DATE_FILTER]\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_RATING + ">= 7 " + PREFIX_STATUS + "Interviewing " + PREFIX_DATE + "after 2023-10-01";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Filters persons by their rating, status and/or date added.\n"
+            + "Parameters: [" + PREFIX_RATING + "RATING] [" + PREFIX_STATUS + "STATUS] ["
+            + PREFIX_DATE + "DATE_FILTER]\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_RATING + ">= 7 " + PREFIX_STATUS
+            + "Interviewing " + PREFIX_DATE + "after 2023-10-01";
 
     private final PersonMatchesFiltersPredicate predicate;
 

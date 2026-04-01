@@ -29,11 +29,23 @@ public class PersonMatchesFiltersPredicate implements Predicate<Person> {
         private final Operator operator;
         private final double value;
 
+        /**
+         * Constructs a {@code RatingFilter}.
+         *
+         * @param operator The comparison operator.
+         * @param value The rating value to compare against.
+         */
         public RatingFilter(Operator operator, double value) {
             this.operator = operator;
             this.value = value;
         }
 
+        /**
+         * Tests if the given rating value matches the filter criteria.
+         *
+         * @param ratingValue The rating value to test.
+         * @return true if the rating value matches the filter.
+         */
         public boolean test(double ratingValue) {
             switch (operator) {
             case GREATER_THAN:
@@ -83,11 +95,23 @@ public class PersonMatchesFiltersPredicate implements Predicate<Person> {
         private final Operator operator;
         private final LocalDate date;
 
+        /**
+         * Constructs a {@code DateFilter}.
+         *
+         * @param operator The comparison operator (BEFORE or AFTER).
+         * @param date The date to compare against.
+         */
         public DateFilter(Operator operator, LocalDate date) {
             this.operator = operator;
             this.date = date;
         }
 
+        /**
+         * Tests if the given date time matches the filter criteria (ignoring time).
+         *
+         * @param dateTime The date time to test.
+         * @return true if the date part of the date time matches the filter.
+         */
         public boolean test(LocalDateTime dateTime) {
             LocalDate targetDate = dateTime.toLocalDate();
             if (operator == Operator.BEFORE) {
