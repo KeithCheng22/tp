@@ -285,9 +285,9 @@ _{Explain here how the data archiving feature will be implemented}_
 **Value proposition**: 
 
 Our application provides a comprehensive list of potential job candidates. 
-It provides the ability to quickly change details (e.g. add, delete) of contacts, including streamlined batch operations. 
-It also categorises contacts, with the ability to quickly search, sort, and retrieve contacts. 
-It is optimised for fast keyboard navigation.
+It allows recruiters to quickly change details (e.g. add, delete) of candidate contacts, including streamlined batch operations. 
+It also categorizes contacts and provides functionality for efficient searching, sorting, and filtering. 
+It is optimized for fast keyboard navigation.
 
 
 
@@ -481,9 +481,10 @@ Use case resumes from step 4.
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact details**: A contact details that is not meant to be shared with others
+* **Private contact details**: A contact's detail that is not meant to be shared with others
 * **Candidate**: An individual whose contact details and hiring status are being tracked in the system.
-* **CLI (Command Line Interface)**: The primary text-based input method used by the Talent Scout to interact with the application without using a mouse.
+* **CLI (Command Line Interface)**: The primary text-based input method used by Recruiters to interact with the application without using a mouse.
+* **GUI (Graphical User Interface)**: A visual interface where Recruiters interact with the application using graphical elements like buttons, icons, and menus
 * **Auto-completion**: A productivity feature where the user presses the Tab key to have the system suggest or finish a command or parameter, reducing typing effort.
 * **Batch-import**: The process of pulling multiple candidate records into the system at once from an external file (like a university portal list) rather than adding them individually.
 * **Duplicate Entry**: A record that matches an existing contact based on the Primary Key (the unique combination of Name + Phone Number).
