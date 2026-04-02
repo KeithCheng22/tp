@@ -37,6 +37,7 @@ public class BatchDeleteCommandTest {
         int deletedCount = expectedModel.getFilteredPersonList().size();
 
         new ArrayList<>(expectedModel.getFilteredPersonList()).forEach(expectedModel::deletePerson);
+        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         String expectedMessage = String.format(BatchDeleteCommand.MESSAGE_BATCH_DELETE_SUCCESS, deletedCount);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
