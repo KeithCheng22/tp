@@ -28,7 +28,7 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Exported %1$d persons to %2$s";
     public static final String MESSAGE_EXPORT_FAILED = "Failed to export data to CSV: %1$s";
 
-    private static final String CSV_HEADER = "Name,Phone,Email,Rating,Status,Referral Status,Roles,Details";
+    private static final String CSV_HEADER = "Name,Phone,Email,Rating,Status,Referral Status,Roles,Details,CreatedAt";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -80,7 +80,8 @@ public class ExportCommand extends Command {
                 escapeCsv(person.getStatus().toString()),
                 escapeCsv(person.getReferralStatus().toString()),
                 escapeCsv(roles),
-                escapeCsv(person.getDetails().toString()));
+                escapeCsv(person.getDetails().toString()),
+                escapeCsv(person.getCreatedAt().toString()));
     }
 
     private String escapeCsv(String value) {
