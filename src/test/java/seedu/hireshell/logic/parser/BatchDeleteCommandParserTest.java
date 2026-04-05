@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.hireshell.logic.commands.BatchDeleteCommand;
 import seedu.hireshell.model.person.BatchPredicate;
+import seedu.hireshell.model.person.DateCondition;
 import seedu.hireshell.model.person.RatingCondition;
 import seedu.hireshell.model.person.Status;
 import seedu.hireshell.model.role.Role;
@@ -30,23 +31,30 @@ public class BatchDeleteCommandParserTest {
     public void parse_validArgs_returnsBatchDeleteCommand() {
         // Status only
         BatchPredicate predicateStatus = new BatchPredicate(Optional.of(new Status("APPLIED")),
-                Optional.empty(), Optional.empty());
+                Optional.empty(), Optional.empty(), Optional.empty());
         assertParseSuccess(parser, " s/APPLIED", new BatchDeleteCommand(predicateStatus));
 
         // Role only
         BatchPredicate predicateRole = new BatchPredicate(Optional.empty(),
-                Optional.of(List.of(new Role("Developer"))), Optional.empty());
+                Optional.of(List.of(new Role("Developer"))), Optional.empty(), Optional.empty());
         assertParseSuccess(parser, " r/Developer", new BatchDeleteCommand(predicateRole));
 
         // Rating condition only
         BatchPredicate predicateRating = new BatchPredicate(Optional.empty(), Optional.empty(),
-                Optional.of(new RatingCondition(">= 5.0")));
+                Optional.of(new RatingCondition(">= 5.0")), Optional.empty());
         assertParseSuccess(parser, " rt/>= 5.0", new BatchDeleteCommand(predicateRating));
 
         // All fields
         BatchPredicate predicateAll = new BatchPredicate(Optional.of(new Status("APPLIED")),
-                Optional.of(List.of(new Role("Developer"))), Optional.of(new RatingCondition(">= 5.0")));
-        assertParseSuccess(parser, " s/APPLIED r/Developer rt/>= 5.0", new BatchDeleteCommand(predicateAll));
+                Optional.of(List.of(new Role("Developer"))), Optional.of(new RatingCondition(">= 5.0")),
+                Optional.of(new DateCondition("before 2026-01-01")));
+        assertParseSuccess(parser, " s/APPLIED r/Developer rt/>= 5.0 dt/before 2026-01-01",
+                new BatchDeleteCommand(predicateAll));
+
+        // Date only
+        BatchPredicate predicateDate = new BatchPredicate(Optional.empty(), Optional.empty(),
+                Optional.empty(), Optional.of(new DateCondition("after 2023-10-01")));
+        assertParseSuccess(parser, " dt/after 2023-10-01", new BatchDeleteCommand(predicateDate));
     }
 
     @Test
@@ -61,5 +69,8 @@ public class BatchDeleteCommandParserTest {
 
         // Invalid rating condition
         assertParseFailure(parser, " rt/invalid", RatingCondition.MESSAGE_CONSTRAINTS);
+
+        // Invalid date condition
+        assertParseFailure(parser, " dt/invalid", DateCondition.MESSAGE_CONSTRAINTS);
     }
 }

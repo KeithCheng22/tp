@@ -1,6 +1,7 @@
 package seedu.hireshell.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
@@ -23,8 +24,10 @@ public class BatchDeleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes all persons whose attributes match the specified condition(s).\n"
             + "Parameters: [" + PREFIX_STATUS + "STATUS] [" + PREFIX_ROLE + "ROLE]... "
-            + "[" + PREFIX_RATING + "RATING_CONDITION]\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_STATUS + "Rejected " + PREFIX_RATING + "< 5";
+            + "[" + PREFIX_RATING + "RATING_CONDITION] "
+            + "[" + PREFIX_DATE + "DATE_CONDITION]\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_STATUS + "Rejected " + PREFIX_RATING + "< 5 "
+            + PREFIX_DATE + "before 2024-01-01";
 
     public static final String MESSAGE_BATCH_DELETE_SUCCESS = "Deleted %1$d person(s)";
     public static final String MESSAGE_NO_PERSONS_MATCHED = "No persons match the specified criteria";
@@ -50,6 +53,7 @@ public class BatchDeleteCommand extends Command {
             model.deletePerson(person);
         }
 
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_BATCH_DELETE_SUCCESS, personsToDelete.size()));
     }
 

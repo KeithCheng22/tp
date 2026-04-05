@@ -34,7 +34,7 @@ public class BatchEditCommandTest {
     @Test
     public void execute_validPredicateMatching_success() {
         BatchPredicate predicate = new BatchPredicate(Optional.empty(), Optional.empty(),
-                Optional.of(new RatingCondition(">= 8.0")));
+                Optional.of(new RatingCondition(">= 8.0")), Optional.empty());
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_STATUS_BOB).build();
         BatchEditCommand command = new BatchEditCommand(predicate, descriptor);
@@ -58,7 +58,7 @@ public class BatchEditCommandTest {
     @Test
     public void execute_validPredicateNoMatching_throwsCommandException() {
         BatchPredicate predicate = new BatchPredicate(Optional.of(new Status("non-existent-status")),
-                Optional.empty(), Optional.empty());
+                Optional.empty(), Optional.empty(), Optional.empty());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_STATUS_BOB).build();
         BatchEditCommand command = new BatchEditCommand(predicate, descriptor);
 
@@ -68,9 +68,9 @@ public class BatchEditCommandTest {
     @Test
     public void equals() {
         BatchPredicate predicate1 = new BatchPredicate(Optional.of(new Status("APPLIED")),
-                Optional.empty(), Optional.empty());
+                Optional.empty(), Optional.empty(), Optional.empty());
         BatchPredicate predicate2 = new BatchPredicate(Optional.of(new Status("REJECTED")),
-                Optional.empty(), Optional.empty());
+                Optional.empty(), Optional.empty(), Optional.empty());
 
         EditPersonDescriptor descriptor1 = new EditPersonDescriptorBuilder().withAddress("ACCEPTED").build();
         EditPersonDescriptor descriptor2 = new EditPersonDescriptorBuilder().withAddress("REJECTED").build();

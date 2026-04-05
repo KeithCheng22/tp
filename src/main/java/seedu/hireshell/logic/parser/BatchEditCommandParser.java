@@ -2,6 +2,7 @@ package seedu.hireshell.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.hireshell.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_DETAILS;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_NAME;
@@ -21,6 +22,7 @@ import seedu.hireshell.logic.commands.BatchEditCommand;
 import seedu.hireshell.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
 import seedu.hireshell.model.person.BatchPredicate;
+import seedu.hireshell.model.person.DateCondition;
 import seedu.hireshell.model.person.RatingCondition;
 import seedu.hireshell.model.person.Status;
 import seedu.hireshell.model.role.Role;
@@ -49,7 +51,7 @@ public class BatchEditCommandParser implements Parser<BatchEditCommand> {
 
         // 1. Parse conditions
         ArgumentMultimap conditionMultimap =
-                ArgumentTokenizer.tokenize(conditionArgs, PREFIX_STATUS, PREFIX_ROLE, PREFIX_RATING);
+                ArgumentTokenizer.tokenize(conditionArgs, PREFIX_STATUS, PREFIX_ROLE, PREFIX_RATING, PREFIX_DATE);
 
         if (!conditionMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BatchEditCommand.MESSAGE_USAGE));
@@ -75,19 +77,28 @@ public class BatchEditCommandParser implements Parser<BatchEditCommand> {
             }
         }
 
-        if (status.isEmpty() && roles.isEmpty() && ratingCondition.isEmpty()) {
+        Optional<DateCondition> dateCondition = Optional.empty();
+        if (conditionMultimap.getValue(PREFIX_DATE).isPresent()) {
+            try {
+                dateCondition = Optional.of(new DateCondition(conditionMultimap.getValue(PREFIX_DATE).get()));
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(DateCondition.MESSAGE_CONSTRAINTS);
+            }
+        }
+
+        if (status.isEmpty() && roles.isEmpty() && ratingCondition.isEmpty() && dateCondition.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BatchEditCommand.MESSAGE_USAGE));
         }
 
-        BatchPredicate predicate = new BatchPredicate(status, roles, ratingCondition);
+        BatchPredicate predicate = new BatchPredicate(status, roles, ratingCondition, dateCondition);
 
         // 2. Parse edit descriptor
         ArgumentMultimap editMultimap =
                 ArgumentTokenizer.tokenize(editArgs, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_RATING, PREFIX_STATUS, PREFIX_ROLE, PREFIX_REFERRAL_STATUS);
+                        PREFIX_RATING, PREFIX_STATUS, PREFIX_ROLE, PREFIX_REFERRAL_STATUS, PREFIX_DETAILS);
 
         editMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_RATING,
-                PREFIX_STATUS, PREFIX_REFERRAL_STATUS);
+                PREFIX_STATUS, PREFIX_REFERRAL_STATUS, PREFIX_DETAILS);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 

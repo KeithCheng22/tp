@@ -29,10 +29,13 @@ public class BatchEditCommandParserTest {
     @Test
     public void parse_validArgs_returnsBatchEditCommand() {
         BatchPredicate predicate = new BatchPredicate(Optional.of(new Status("APPLIED")),
-                Optional.empty(), Optional.empty());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withAddress("REJECTED").build();
+                Optional.empty(), Optional.of(new seedu.hireshell.model.person.RatingCondition("> 4.0")),
+                Optional.of(new seedu.hireshell.model.person.DateCondition("before 2026-01-01")));
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withAddress("REJECTED")
+                .withDetails("Great candidate").withRoles().build();
 
-        assertParseSuccess(parser, " s/APPLIED to s/REJECTED", new BatchEditCommand(predicate, descriptor));
+        assertParseSuccess(parser, " s/APPLIED rt/> 4.0 dt/before 2026-01-01 to s/REJECTED d/Great candidate r/",
+                new BatchEditCommand(predicate, descriptor));
     }
 
     @Test
@@ -51,6 +54,26 @@ public class BatchEditCommandParserTest {
 
         // Preamble present in condition
         assertParseFailure(parser, " some preamble s/APPLIED to s/REJECTED",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, BatchEditCommand.MESSAGE_USAGE));
+
+        // Invalid rating condition
+        assertParseFailure(parser, " rt/invalid to s/REJECTED",
+                seedu.hireshell.model.person.RatingCondition.MESSAGE_CONSTRAINTS);
+
+        // Invalid date condition
+        assertParseFailure(parser, " dt/invalid to s/REJECTED",
+                seedu.hireshell.model.person.DateCondition.MESSAGE_CONSTRAINTS);
+
+        // No valid condition fields
+        assertParseFailure(parser, " n/Amy to s/REJECTED",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, BatchEditCommand.MESSAGE_USAGE));
+
+        // Invalid field to edit
+        assertParseFailure(parser, " s/APPLIED to n/",
+                seedu.hireshell.model.person.Name.MESSAGE_CONSTRAINTS);
+
+        // No fields edited
+        assertParseFailure(parser, " s/APPLIED to  ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, BatchEditCommand.MESSAGE_USAGE));
     }
 }

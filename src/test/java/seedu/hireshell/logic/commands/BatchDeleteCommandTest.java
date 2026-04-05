@@ -29,7 +29,7 @@ public class BatchDeleteCommandTest {
     @Test
     public void execute_validPredicateMatching_success() {
         BatchPredicate predicate = new BatchPredicate(Optional.empty(), Optional.empty(),
-                Optional.of(new RatingCondition(">= 8.0")));
+                Optional.of(new RatingCondition(">= 8.0")), Optional.empty());
         BatchDeleteCommand command = new BatchDeleteCommand(predicate);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -37,6 +37,7 @@ public class BatchDeleteCommandTest {
         int deletedCount = expectedModel.getFilteredPersonList().size();
 
         new ArrayList<>(expectedModel.getFilteredPersonList()).forEach(expectedModel::deletePerson);
+        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         String expectedMessage = String.format(BatchDeleteCommand.MESSAGE_BATCH_DELETE_SUCCESS, deletedCount);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -45,7 +46,7 @@ public class BatchDeleteCommandTest {
     @Test
     public void execute_validPredicateNoMatching_throwsCommandException() {
         BatchPredicate predicate = new BatchPredicate(Optional.of(new Status("non-existent-status")),
-                Optional.empty(), Optional.empty());
+                Optional.empty(), Optional.empty(), Optional.empty());
         BatchDeleteCommand command = new BatchDeleteCommand(predicate);
 
         assertCommandFailure(command, model, BatchDeleteCommand.MESSAGE_NO_PERSONS_MATCHED);
@@ -54,11 +55,11 @@ public class BatchDeleteCommandTest {
     @Test
     public void equals() {
         BatchPredicate predicate1 = new BatchPredicate(Optional.of(new Status("APPLIED")),
-                Optional.empty(), Optional.empty());
+                Optional.empty(), Optional.empty(), Optional.empty());
         BatchPredicate predicate2 = new BatchPredicate(Optional.of(new Status("APPLIED")),
-                Optional.empty(), Optional.empty());
+                Optional.empty(), Optional.empty(), Optional.empty());
         BatchPredicate predicate3 = new BatchPredicate(Optional.of(new Status("REJECTED")),
-                Optional.empty(), Optional.empty());
+                Optional.empty(), Optional.empty(), Optional.empty());
 
         BatchDeleteCommand command1 = new BatchDeleteCommand(predicate1);
         BatchDeleteCommand command2 = new BatchDeleteCommand(predicate2);

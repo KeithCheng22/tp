@@ -509,7 +509,13 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Launch the app:
+      - **Windows/Mac/Linux:** Double-click the jar file.
+      - **If double-clicking fails:** Open a terminal, navigate to the folder, and run:
+        ```bash
+        java -jar hireshell.jar
+        ```
+      Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -535,15 +541,88 @@ testers are expected to do more *exploratory* testing.
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Sorting persons by date added
+
+1. Sorting the list by date added
+
+   1. Prerequisites: Multiple persons in the list with different addition dates.
+
+   1. Test case: `sort dt/asc`<br>
+      Expected: List is sorted by date added, from earliest to latest. Status message confirms sorting by date ascending.
+
+   1. Test case: `sort dt/invalid`<br>
+      Expected: No sorting performed. Error message indicates invalid order (must be asc or desc).
+
+   1. Test case: `sort rt/asc dt/desc`<br>
+      Expected: No sorting performed. Error message indicates only one sort field can be specified.
+
+### Filtering persons by date added
+
+1. Filtering persons added before, after, or on a certain date
+
+   1. Prerequisites: Multiple persons in the list with different addition dates.
+
+   1. Test case: `filter dt/before 2026-04-01`<br>
+      Expected: Only persons added before April 1st, 2026 are shown. Status message indicates the number of persons listed.
+
+   1. Test case: `filter dt/ 2026-01-01`<br>
+      Expected: Only persons added on January 1st, 2026 are shown.
+
+   1. Test case: `filter rt/>=8 dt/after 2026-01-01`<br>
+      Expected: Only persons with rating >= 8.0 AND added after January 1st, 2026 are shown.
+
+### Batch deleting persons
+
+1. Deleting multiple persons using filters
+
+   1. Prerequisites: Multiple persons with various ratings and statuses. Use `list` to see all.
+
+   1. Test case: `batch delete s/Rejected`<br>
+      Expected: All persons with status "Rejected" are removed from the list.
+
+   1. Test case: `batch delete rt/< 3.0`<br>
+      Expected: All persons with rating strictly less than 3.0 are removed.
+
+   1. Test case: `batch delete s/Applied rt/<= 5.0`<br>
+      Expected: Only persons who are BOTH "Applied" AND have rating <= 5.0 are removed.
+
+### Batch editing persons
+
+1. Editing multiple persons using filters
+
+   1. Prerequisites: Multiple persons in the list.
+
+   1. Test case: `batch edit s/Applied to s/Interviewing`<br>
+      Expected: All persons who were "Applied" now have their status updated to "Interviewing" in the list.
+
+   1. Test case: `batch edit r/Intern to rt/10.0 s/Accepted`<br>
+      Expected: All persons with the "Intern" role have their rating updated to 10.0 and status to "Accepted".
+
+   1. Test case: `batch edit rt/> 9.0 to rs/REFERRED`<br>
+      Expected: All persons with rating > 9.0 have their referral status updated to REFERRED.
+
+### Exporting data
+
+1. Exporting contacts to CSV
+
+   1. Test case: `export`<br>
+      Expected: A success message is shown. A file named `hireshell.csv` (or similar, depending on configuration) appears in the same directory as the jar file.
+
+   1. Test case: Open the exported file in a text editor or Excel.<br>
+      Expected: The file contains all contact details, including the `createdAt` timestamps.
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Test case: Manually delete the `data/hireshell.json` file.<br>
+      Expected: HireShell starts with an empty address book (or sample data if configured as default).
 
-1. _{ more test cases …​ }_
+   1. Test case: Manually edit `data/hireshell.json` and remove the `createdAt` field from one of the person entries.<br>
+      Expected: HireShell detects the illegal value, starts with an empty address book, and logs the error.
+
+   1. Test case: Manually edit `data/hireshell.json` and change a `createdAt` value to an invalid format (e.g., "invalid-date").<br>
+      Expected: HireShell starts with an empty address book due to data loading failure.
 
 --------------------------------------------------------------------------------------------------------------------
 

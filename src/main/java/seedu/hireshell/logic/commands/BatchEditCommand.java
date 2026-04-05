@@ -1,6 +1,7 @@
 package seedu.hireshell.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.hireshell.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -32,8 +33,9 @@ public class BatchEditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits all persons whose attributes match the specified condition(s).\n"
-            + "Parameters: [CONDITIONS] to [EDITS]\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_STATUS + "APPLIED to " + PREFIX_STATUS + "REJECTED";
+            + "Parameters: [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION] [dt/DATE_CONDITION] to [EDITS]\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_STATUS + "APPLIED " + PREFIX_DATE + "before 2024-01-01 to "
+            + PREFIX_STATUS + "REJECTED";
 
     public static final String MESSAGE_BATCH_EDIT_SUCCESS = "Edited %1$d person(s)";
     public static final String MESSAGE_NO_PERSONS_MATCHED = "No persons match the specified criteria";
