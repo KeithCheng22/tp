@@ -24,7 +24,7 @@ public class FilterCommandTest {
     @Test
     public void execute_filterSuccessful() {
         ModelStubAcceptingPredicate modelStub = new ModelStubAcceptingPredicate();
-        PersonMatchesFiltersPredicate predicate = new PersonMatchesFiltersPredicate(null, "status", null);
+        PersonMatchesFiltersPredicate predicate = new PersonMatchesFiltersPredicate(null, "status", null, null);
         FilterCommand filterCommand = new FilterCommand(predicate);
 
         CommandResult commandResult = filterCommand.execute(modelStub);
@@ -36,8 +36,8 @@ public class FilterCommandTest {
 
     @Test
     public void equals() {
-        PersonMatchesFiltersPredicate predicate1 = new PersonMatchesFiltersPredicate(null, "status1", null);
-        PersonMatchesFiltersPredicate predicate2 = new PersonMatchesFiltersPredicate(null, "status2", null);
+        PersonMatchesFiltersPredicate predicate1 = new PersonMatchesFiltersPredicate(null, "status1", null, null);
+        PersonMatchesFiltersPredicate predicate2 = new PersonMatchesFiltersPredicate(null, "status2", null, null);
         FilterCommand filterCommand1 = new FilterCommand(predicate1);
         FilterCommand filterCommand2 = new FilterCommand(predicate1);
         FilterCommand filterCommand3 = new FilterCommand(predicate2);
@@ -60,7 +60,7 @@ public class FilterCommandTest {
 
     @Test
     public void toStringMethod() {
-        PersonMatchesFiltersPredicate predicate = new PersonMatchesFiltersPredicate(null, "status", null);
+        PersonMatchesFiltersPredicate predicate = new PersonMatchesFiltersPredicate(null, "status", null, null);
         FilterCommand filterCommand = new FilterCommand(predicate);
         String expected = FilterCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, filterCommand.toString());

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.hireshell.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.time.LocalDate;
@@ -35,14 +36,15 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     public FilterCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_RATING, PREFIX_STATUS, PREFIX_DATE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_RATING, PREFIX_STATUS, PREFIX_DATE,
+                PREFIX_ROLE);
 
         if (!argMultimap.getValue(PREFIX_RATING).isPresent() && !argMultimap.getValue(PREFIX_STATUS).isPresent()
-                && !argMultimap.getValue(PREFIX_DATE).isPresent()) {
+                && !argMultimap.getValue(PREFIX_DATE).isPresent() && !argMultimap.getValue(PREFIX_ROLE).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_RATING, PREFIX_STATUS, PREFIX_DATE);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_RATING, PREFIX_STATUS, PREFIX_DATE, PREFIX_ROLE);
 
         RatingFilter ratingFilter = null;
         if (argMultimap.getValue(PREFIX_RATING).isPresent()) {
@@ -56,7 +58,9 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             dateFilter = parseDateFilter(argMultimap.getValue(PREFIX_DATE).get());
         }
 
-        return new FilterCommand(new PersonMatchesFiltersPredicate(ratingFilter, statusFilter, dateFilter));
+        String roleFilter = argMultimap.getValue(PREFIX_ROLE).orElse(null);
+
+        return new FilterCommand(new PersonMatchesFiltersPredicate(ratingFilter, statusFilter, dateFilter, roleFilter));
     }
 
     /**
