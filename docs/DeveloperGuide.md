@@ -623,3 +623,32 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: Manually edit `data/hireshell.json` and change a `createdAt` value to an invalid format (e.g., "invalid-date").<br>
       Expected: HireShell starts with an empty address book due to data loading failure.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+**Team Size: 5**
+
+1. **Make command history persist:** The current implementation of the command history does not display the command history for the previous session (i.e. not persistent through app restarts).
+   We plan to make the command history persistent across sessions, such that users can still see the command history from their previous session when they restart the app.
+
+
+2. **Allow for custom exported file names:** The current implementation of the export function does not allow users to specify the name of the exported file, and defaults to `hireshell_export.csv`.
+   We plan to allow users to specify the name of the exported file, such that they can choose a more descriptive name for their exported file (e.g. `candidates-april-2026.csv`).
+
+
+3. **Allow for custom save file paths:** The current implementation of the save function does not allow users to specify the path of the saved file, and defaults to the current working directory.
+   We plan to allow users to specify the path of the saved file, such that they can choose where they want their data to be saved (e.g. `C:/Users/John/Documents/hireshell_data.json`).
+
+
+4. **Implement range filtering:** The current implementation of the filter function only supports filtering by a single value (e.g. `filter rt/> 8.0` to filter candidates with rating strictly greater than 8.0).
+   We plan to implement range filtering, such that users can filter candidates with rating between 7.0 and 9.0 using `filter rt/>=7.0 rt/<=9.0`.
+
+
+5. **Allow alphabetical sorting for name:** The current implementation of the sort function only supports sorting by rating.
+   We plan to allow users to sort candidates alphabetically by name using `sort n/asc` or `sort n/desc`.
+
+
+6. **Implement tie-breakers for sorting:** The current implementation of sorting only allows users to sort by rating. However, multiple candidates can have the same rating, in which case the order of those candidates will just be by date added.
+   We plan to allow users to specify other fields, such as role or referral status. For example, `sort rt/desc rs/asc` will sort candidates by rating in descending order, and if there are ties in rating, those candidates will be sorted by referral status in ascending order (i.e. Referred candidates (Yes) will be shown before Non-referred (No) candidates).
