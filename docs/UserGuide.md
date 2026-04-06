@@ -114,6 +114,9 @@ Adds a person to the address book.
 
 Format: `add  n/NAME p/PHONE e/EMAIL [rt/RATING] s/STATUS rs/REFERRAL_STATUS [r/ROLE] [d/DETAIL]…​`
 
+* Persons with the same name/phone number can be added
+* Persons with **both** the same name and phone number will be considered a duplicate person, 
+
 <box type="tip" seamless>
 
 **Tip:** A person can have any number of roles (including 0)
@@ -143,6 +146,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFE
 * When editing roles, the existing roles of the person will be removed i.e adding of roles is not cumulative.
 * You can remove all the person’s roles by typing `r/` without
     specifying any roles after it.
+* If a person is updated in a way that causes their details to exactly match an already existing person (ignoring roles/statuses), an error will be thrown to prevent duplicate persons
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -166,25 +170,26 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Filtering persons by rating, status, or date: `filter`
+### Filtering persons by rating, status, date, or role: `filter`
 
-Filters persons whose rating, status, and/or date added match the specified criteria.
+Filters persons whose rating, status, date added, and/or role match the specified criteria.
 
-Format: `filter [rt/RATING_FILTER] [s/STATUS] [dt/DATE_FILTER]`
+Format: `filter [rt/RATING_FILTER] [s/STATUS] [dt/DATE_FILTER] [r/ROLE]`
 
 * At least one of the optional fields must be provided.
 * `RATING_FILTER` can include a comparison operator (`>`, `>=`, `<`, `<=`, `==`) followed by a number. If no operator is provided, `==` is assumed.
-* `STATUS` matches the status field of the person (case-insensitive).
+* `STATUS` matches the status field of the person (case-insensitive, partial matches allowed).
 * `DATE_FILTER` can include an operator (`before`, `after`, `on`) followed by a date in `YYYY-MM-DD` format. If no operator is provided, `on` is assumed.
+* `ROLE` matches one of the roles of the person (case-insensitive, partial matches allowed).
 * If multiple criteria are provided, only persons matching **all** of them will be shown.
 
 Examples:
 * `filter rt/ >= 7` returns persons with a rating of 7.0 or higher.
-* `filter s/Interviewing` returns persons whose status is "Interviewing".
+* `filter s/Inter` returns persons whose status contains "inter" (e.g., "Interviewing").
+* `filter r/soft` returns persons who have a role containing "soft" (e.g., "Software Engineer").
 * `filter dt/on 2026-04-01` returns persons added on April 1st, 2026.
-* `filter dt/2026-04-01` also returns persons added on April 1st, 2026 (defaults to `on`).
-* `filter dt/after 2026-01-01` returns persons added after January 1st, 2026.
-* `filter rt/ < 5 s/Rejected dt/before 2026-03-01` returns persons with a rating less than 5.0, a status of "Rejected", and added before March 1st, 2026.
+* `filter r/Software Engineer` returns persons who have the "Software Engineer" role.
+* `filter rt/ < 5 s/Rej dt/before 2026-03-01 r/Int` returns persons with a rating less than 5.0, a status containing "rej" (e.g., "Rejected"), added before March 1st, 2026, and having a role containing "int" (e.g., "Intern").
 
 ### Sorting persons by rating or date: `sort`
 
@@ -350,7 +355,7 @@ _Details coming soon ..._
 | **[Clear](#clearing-all-entries-clear)**                    | `clear`                                                                                                                                                                                     |
 | **[Delete](#deleting-a-person-delete)**                     | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                         |
 | **[Edit](#editing-a-person-edit)**                          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com rt/9.0`                         |
-| **[Filter](#filtering-persons-by-rating-status-or-date-filter)** | `filter [rt/RATING_FILTER] [s/STATUS] [dt/DATE_FILTER]` <br> e.g., `filter rt/ >= 7 dt/after 2026-01-01`                                               |
+| **[Filter](#filtering-persons-by-rating-status-date-or-role-filter)** | `filter [rt/RATING_FILTER] [s/STATUS] [dt/DATE_FILTER] [r/ROLE]` <br> e.g., `filter rt/ >= 7 r/Software Engineer`                                               |
 | **[Find](#locating-persons-by-name-find)**                  | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                  |
 | **[List](#listing-all-persons-list)**                       | `list`                                                                                                                                                                                      |
 | **[Sort](#sorting-persons-by-rating-or-date-sort)**         | `sort rt/ORDER` or `sort dt/ORDER` <br> e.g., `sort dt/desc`                                                                                                                                |

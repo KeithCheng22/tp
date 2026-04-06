@@ -8,12 +8,14 @@ import java.util.function.Predicate;
 import seedu.hireshell.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person}'s {@code Rating}, {@code Status}, and {@code createdAt} matches the filters given.
+ * Tests that a {@code Person}'s {@code Rating}, {@code Status}, {@code createdAt}, and {@code roles} match the
+ * filters given.
  */
 public class PersonMatchesFiltersPredicate implements Predicate<Person> {
     private final RatingFilter ratingFilter;
     private final String statusFilter;
     private final DateFilter dateFilter;
+    private final String roleFilter;
 
     /**
      * Represents a rating filter with an operator and a value.
@@ -150,19 +152,25 @@ public class PersonMatchesFiltersPredicate implements Predicate<Person> {
      * @param ratingFilter The rating filter to apply, can be null.
      * @param statusFilter The status filter to apply, can be null.
      * @param dateFilter The date filter to apply, can be null.
+     * @param roleFilter The role filter to apply, can be null.
      */
-    public PersonMatchesFiltersPredicate(RatingFilter ratingFilter, String statusFilter, DateFilter dateFilter) {
+    public PersonMatchesFiltersPredicate(RatingFilter ratingFilter, String statusFilter, DateFilter dateFilter,
+                                         String roleFilter) {
         this.ratingFilter = ratingFilter;
         this.statusFilter = statusFilter;
         this.dateFilter = dateFilter;
+        this.roleFilter = roleFilter;
     }
 
     @Override
     public boolean test(Person person) {
         boolean matchesRating = ratingFilter == null || ratingFilter.test(person.getRating().value);
-        boolean matchesStatus = statusFilter == null || person.getStatus().value.equalsIgnoreCase(statusFilter);
+        boolean matchesStatus = statusFilter == null || person.getStatus().value.toLowerCase()
+                .contains(statusFilter.toLowerCase());
         boolean matchesDate = dateFilter == null || dateFilter.test(person.getCreatedAt());
-        return matchesRating && matchesStatus && matchesDate;
+        boolean matchesRole = roleFilter == null || person.getRoles().stream()
+                .anyMatch(role -> role.roleName.toLowerCase().contains(roleFilter.toLowerCase()));
+        return matchesRating && matchesStatus && matchesDate && matchesRole;
     }
 
     @Override
@@ -178,7 +186,8 @@ public class PersonMatchesFiltersPredicate implements Predicate<Person> {
         PersonMatchesFiltersPredicate otherPredicate = (PersonMatchesFiltersPredicate) other;
         return Objects.equals(ratingFilter, otherPredicate.ratingFilter)
                 && Objects.equals(statusFilter, otherPredicate.statusFilter)
-                && Objects.equals(dateFilter, otherPredicate.dateFilter);
+                && Objects.equals(dateFilter, otherPredicate.dateFilter)
+                && Objects.equals(roleFilter, otherPredicate.roleFilter);
     }
 
     @Override
@@ -187,6 +196,7 @@ public class PersonMatchesFiltersPredicate implements Predicate<Person> {
                 .add("ratingFilter", ratingFilter)
                 .add("statusFilter", statusFilter)
                 .add("dateFilter", dateFilter)
+                .add("roleFilter", roleFilter)
                 .toString();
     }
 }
