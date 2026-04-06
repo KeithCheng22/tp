@@ -30,10 +30,21 @@ public class BatchPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        boolean matchStatus = status.map(s -> person.getStatus().equals(s)).orElse(true);
-        boolean matchRoles = roles.map(r -> person.getRoles().containsAll(r)).orElse(true);
-        boolean matchRating = ratingCondition.map(rc -> rc.test(person.getRating())).orElse(true);
-        boolean matchDate = dateCondition.map(dc -> dc.test(person.getCreatedAt())).orElse(true);
+        boolean matchStatus = status == null || person.getStatus().value.equalsIgnoreCase(status.value);
+        boolean matchRating = ratingCondition == null || ratingCondition.test(person.getRating());
+        boolean matchDate = dateCondition == null || dateCondition.test(person.getCreatedAt());
+        boolean matchRoles = true;
+        if (roles != null) {
+            List<String> personRoleNames = new ArrayList<>();
+            for (Role role : person.getRoles()) {
+                personRoleNames.add(role.roleName.toLowerCase());
+            }
+            List<String> filterRoleNames = new ArrayList<>();
+            for (Role role : roles) {
+                filterRoleNames.add(role.roleName.toLowerCase());
+            }
+            matchRoles = personRoleNames.containsAll(filterRoleNames);
+        }
 
         return matchStatus && matchRoles && matchRating && matchDate;
     }
