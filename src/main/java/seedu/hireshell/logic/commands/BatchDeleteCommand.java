@@ -41,11 +41,15 @@ public class BatchDeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
-        List<Person> personsToDelete = new ArrayList<>(model.getFilteredPersonList());
+
+        List<Person> personsToDelete = new ArrayList<>();
+        for (Person person : model.getAddressBook().getPersonList()) {
+            if (predicate.test(person)) {
+                personsToDelete.add(person);
+            }
+        }
 
         if (personsToDelete.isEmpty()) {
-            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
             throw new CommandException(MESSAGE_NO_PERSONS_MATCHED);
         }
 
