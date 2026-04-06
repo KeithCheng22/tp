@@ -1,6 +1,7 @@
 package seedu.hireshell.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_DETAILS;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -51,7 +52,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_RATING + "RATING] "
             + "[" + PREFIX_STATUS + "STATUS] "
             + "[" + PREFIX_REFERRAL_STATUS + "REFERRAL_STATUS] "
-            + "[" + PREFIX_ROLE + "ROLE]...\n"
+            + "[" + PREFIX_ROLE + "ROLE]..."
+            + "[" + PREFIX_DETAILS + "DETAILS]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_RATING + "9.0 "
