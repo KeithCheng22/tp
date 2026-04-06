@@ -290,7 +290,6 @@ It also categorizes contacts and provides functionality for efficient searching,
 It is optimized for fast keyboard navigation.
 
 
-
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
@@ -324,44 +323,46 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Planned (future versions)**
 
 | Priority | As a …         | I want to …                                                                                                    | So that I can…                                                                          |
-| -------- | -------------- | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `* *`    | new user       | batch-import a CSV of candidate data                                                                           | populate the app quickly without manual entry                                           |
-| `* *`    | recruiter      | see if a candidate is already in the database                                                                  | not waste time managing the same person twice                                           |
-| `* *`    | recruiter      | record last-contacted date                                                                                     | avoid letting candidates go cold                                                        |
-| `*`      | mass recruiter | run a cleanup command that groups candidates by inactivity window                                              | batch-archive/delete in one pass                                                        |
-| `* *`    | recruiter      | use boolean-style search with OR/NOT operators                                                                 | build precise candidate lists without clicking filters                                  |
-| `* *`    | recruiter      | attach a link to a portfolio/LinkedIn/resume location                                                          | jump to supporting material quickly                                                     |
-| `* *`    | recruiter      | record the source of a candidate (referral, LinkedIn, event, inbound)                                          | evaluate sourcing channels                                                              |
-| `* *`    | recruiter      | export a filtered subset of the candidate list (e.g., CSV)                                                     | share shortlists with hiring managers or other systems                                  |
-| `* * *`  | recruiter      | see warnings before any candidates are deleted                                                                 | not delete a bunch of candidates by accident                                            |
-| `*`      | expert user    | execute a “Mass Categorize” command                                                                            | move an entire group of candidates from one recruitment stage to another simultaneously |
-| `* *`    | recruiter      | undo the previous command                                                                                      | reverse accidental actions                                                              |
-| `* *`    | recruiter      | use the up/down arrow keys to browse past CLI commands                                                         | reuse or edit past inputs quickly                                                       |
-| `*`      | recruiter      | lock certain fields (e.g., ID, email) from accidental edits                                                    | keep critical identifiers stable                                                        |
-| `* *`    | recruiter      | add structured fields like location, work authorization, and salary expectations                               | screen faster and avoid mismatches                                                      |
-| `*`      | recruiter      | define a contact “lifecycle” rule (e.g., archive after 90 days inactive)                                       | keep my database current with minimal effort                                            |
-| `* *`    | recruiter      | use command aliases (e.g., a for add, d for delete, e for edit)                                                | type commands faster                                                                    |
-| `*`      | recruiter      | use tab-based auto-completion for commands and prefixes                                                        | not need to memorise full syntax                                                        |
-| `* *`    | recruiter      | find contacts using other fields (phone, email, address)                                                       | retrieve someone even if I forget their name                                            |
-| `*`      | recruiter      | paste a messy block of text (email signature / LinkedIn snippet) and have fields auto-suggested                | avoid manual retyping                                                                   |
-| `* *`    | recruiter      | use positional arguments for fast entry (e.g., add “John Doe” 91234567 [john@email.com](mailto:john@email.com)) | input data quickly                                                                     |
-| `*`      | recruiter      | view “recently modified” candidates                                                                            | resume work where I left off without remembering names                                  |
-| `* *`    | recruiter      | view “recently contacted” and “overdue follow-ups” lists                                                       | not lose candidates due to slow response                                                |
-| `*`      | recruiter      | view a history of recent actions                                                                               | track what changes were made                                                            |
-| `*`      | recruiter      | see a preview of the contact being added before confirmation                                                   | verify details before committing                                                        |
-| `*`      | recruiter      | bulk-apply a “cooldown” status after rejection                                                                 | not accidentally re-contact too soon                                                    |
-| `*`      | recruiter      | record time zone and preferred contact hours                                                                   | make outreach more effective and less intrusive                                         |
-| `*`      | recruiter      | add custom CLI commands                                                                                        | type commands more efficiently                                                          |
-| `* *`    | recruiter      | mark a contact as favourite or important                                                                       | quickly find high-priority candidates                                                   |
-| `* *`    | recruiter      | archive contacts instead of deleting                                                                           | keep historical records                                                                 |
-| `*`      | recruiter      | copy a candidate's email to my clipboard with a single command                                                  | switch to my email app and paste it                                                     |
-| `* *`    | recruiter      | see a count of how many candidates match my current filter                                                     | know if my search pool is too broad                                                     |
+|--------| -------------- | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `* *`  | new user       | batch-import a CSV of candidate data                                                                           | populate the app quickly without manual entry                                           |
+| `* *`  | recruiter      | see if a candidate is already in the database                                                                  | not waste time managing the same person twice                                           |
+| `* *`  | recruiter      | record last-contacted date                                                                                     | avoid letting candidates go cold                                                        |
+| `*`    | mass recruiter | run a cleanup command that groups candidates by inactivity window                                              | batch-archive/delete in one pass                                                        |
+| `* *`  | recruiter      | use boolean-style search with OR/NOT operators                                                                 | build precise candidate lists without clicking filters                                  |
+| `* *`  | recruiter      | attach a link to a portfolio/LinkedIn/resume location                                                          | jump to supporting material quickly                                                     |
+| `* *`  | recruiter      | record the source of a candidate (referral, LinkedIn, event, inbound)                                          | evaluate sourcing channels                                                              |
+| `* *`  | recruiter      | export a filtered subset of the candidate list (e.g., CSV)                                                     | share shortlists with hiring managers or other systems                                  |
+| `* *`  | recruiter      | see warnings before any candidates are deleted                                                                 | not delete a bunch of candidates by accident                                            |
+| `*`    | expert user    | execute a “Mass Categorize” command                                                                            | move an entire group of candidates from one recruitment stage to another simultaneously |
+| `* *`  | recruiter      | undo the previous command                                                                                      | reverse accidental actions                                                              |
+| `* *`  | recruiter      | use the up/down arrow keys to browse past CLI commands                                                         | reuse or edit past inputs quickly                                                       |
+| `*`    | recruiter      | lock certain fields (e.g., ID, email) from accidental edits                                                    | keep critical identifiers stable                                                        |
+| `* *`  | recruiter      | add structured fields like location, work authorization, and salary expectations                               | screen faster and avoid mismatches                                                      |
+| `*`    | recruiter      | define a contact “lifecycle” rule (e.g., archive after 90 days inactive)                                       | keep my database current with minimal effort                                            |
+| `* *`  | recruiter      | use command aliases (e.g., a for add, d for delete, e for edit)                                                | type commands faster                                                                    |
+| `*`    | recruiter      | use tab-based auto-completion for commands and prefixes                                                        | not need to memorise full syntax                                                        |
+| `* *`  | recruiter      | find contacts using other fields (phone, email, address)                                                       | retrieve someone even if I forget their name                                            |
+| `*`    | recruiter      | paste a messy block of text (email signature / LinkedIn snippet) and have fields auto-suggested                | avoid manual retyping                                                                   |
+| `* *`  | recruiter      | use positional arguments for fast entry (e.g., add “John Doe” 91234567 [john@email.com](mailto:john@email.com)) | input data quickly                                                                     |
+| `*`    | recruiter      | view “recently modified” candidates                                                                            | resume work where I left off without remembering names                                  |
+| `* *`  | recruiter      | view “recently contacted” and “overdue follow-ups” lists                                                       | not lose candidates due to slow response                                                |
+| `*`    | recruiter      | view a history of recent actions                                                                               | track what changes were made                                                            |
+| `*`    | recruiter      | see a preview of the contact being added before confirmation                                                   | verify details before committing                                                        |
+| `*`    | recruiter      | bulk-apply a “cooldown” status after rejection                                                                 | not accidentally re-contact too soon                                                    |
+| `*`    | recruiter      | record time zone and preferred contact hours                                                                   | make outreach more effective and less intrusive                                         |
+| `*`    | recruiter      | add custom CLI commands                                                                                        | type commands more efficiently                                                          |
+| `* *`  | recruiter      | mark a contact as favourite or important                                                                       | quickly find high-priority candidates                                                   |
+| `* *`  | recruiter      | archive contacts instead of deleting                                                                           | keep historical records                                                                 |
+| `*`    | recruiter      | copy a candidate's email to my clipboard with a single command                                                  | switch to my email app and paste it                                                     |
+| `* *`  | recruiter      | see a count of how many candidates match my current filter                                                     | know if my search pool is too broad                                                     |
 
 
 ### Use cases
 
-(For all use cases below, the **System** is the `HireShell` and the **Actor** is the `Recruiter`, 
+(For all use cases below, the **System** is the `HireShell` and the **Actor** is the `Recruiter`,
 unless specified otherwise)
+
+> **Note:** Simple, single-step commands (`list`, `sort`, `help`, `clear`, `exit`, `export`, `select`) are not documented as separate use cases as their interactions are straightforward. `find` follows the same pattern as UC02 — a single input with an error extension for no matches.
 
 **Use Case: UC01 - Add a candidate**
 
@@ -400,7 +401,36 @@ unless specified otherwise)
     * Use case ends.
 
 
-**Use Case: UC03 - Batch delete candidates**
+**Use Case: UC03 - Edit a candidate**
+
+**MSS:**
+1. Recruiter enters the `edit` command with a valid index and at least one field to update.
+2. HireShell validates the new field values.
+3. HireShell updates the candidate and displays a success confirmation message.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use case ends.
+
+**Extensions:**
+
+* 1a. The specified index is invalid (out of range or non-positive integer).
+    * 1a1. HireShell displays an error message.
+    * Use case ends.
+
+* 1b. No fields are provided.
+    * 1b1. HireShell displays an error message indicating at least one field must be specified.
+    * Use case ends.
+
+* 2a. A provided field value is invalid.
+    * 2a1. HireShell displays an error message describing the invalid value.
+    * Use case ends.
+
+* 3a. The edit would result in a duplicate candidate (same name and phone number as an existing entry).
+    * 3a1. HireShell displays an error message indicating the duplicate conflict.
+    * Use case ends.
+
+
+**Use Case: UC04 - Batch delete candidates**
+
 
 **MSS:**
 1. Recruiter enters the `batch delete` command with one or more filter conditions (status, role, and/or rating).
@@ -424,7 +454,7 @@ unless specified otherwise)
     * Use case ends.
 
 
-**Use Case: UC04 - Batch edit candidates**
+**Use Case: UC05 - Batch edit candidates**
 
 **MSS:**
 1. Recruiter enters the `batch edit` command with filter conditions on the left of `to` and edit fields on the right.
