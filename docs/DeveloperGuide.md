@@ -630,7 +630,7 @@ testers are expected to do more *exploratory* testing.
 
 **Team Size: 5**
 
-1. **Make command history persist:** The current implementation of the command history does display the command history for the previous session (i.e. not persistent through app restarts).
+1. **Make command history persist:** The current implementation of the command history does not display the command history for the previous session (i.e. not persistent through app restarts).
    We plan to make the command history persistent across sessions, such that users can still see the command history from their previous session when they restart the app.
 
 
