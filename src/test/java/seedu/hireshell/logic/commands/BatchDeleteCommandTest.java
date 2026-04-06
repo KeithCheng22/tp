@@ -7,7 +7,6 @@ import static seedu.hireshell.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.hireshell.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,8 +27,7 @@ public class BatchDeleteCommandTest {
 
     @Test
     public void execute_validPredicateMatching_success() {
-        BatchPredicate predicate = new BatchPredicate(Optional.empty(), Optional.empty(),
-                Optional.of(new RatingCondition(">= 8.0")), Optional.empty());
+        BatchPredicate predicate = new BatchPredicate(null, null, new RatingCondition(">= 8.0"), null);
         BatchDeleteCommand command = new BatchDeleteCommand(predicate);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -45,8 +43,7 @@ public class BatchDeleteCommandTest {
 
     @Test
     public void execute_validPredicateNoMatching_throwsCommandException() {
-        BatchPredicate predicate = new BatchPredicate(Optional.of(new Status("non-existent-status")),
-                Optional.empty(), Optional.empty(), Optional.empty());
+        BatchPredicate predicate = new BatchPredicate(new Status("non-existent-status"), null, null, null);
         BatchDeleteCommand command = new BatchDeleteCommand(predicate);
 
         assertCommandFailure(command, model, BatchDeleteCommand.MESSAGE_NO_PERSONS_MATCHED);
@@ -54,12 +51,9 @@ public class BatchDeleteCommandTest {
 
     @Test
     public void equals() {
-        BatchPredicate predicate1 = new BatchPredicate(Optional.of(new Status("APPLIED")),
-                Optional.empty(), Optional.empty(), Optional.empty());
-        BatchPredicate predicate2 = new BatchPredicate(Optional.of(new Status("APPLIED")),
-                Optional.empty(), Optional.empty(), Optional.empty());
-        BatchPredicate predicate3 = new BatchPredicate(Optional.of(new Status("REJECTED")),
-                Optional.empty(), Optional.empty(), Optional.empty());
+        BatchPredicate predicate1 = new BatchPredicate(new Status("APPLIED"), null, null, null);
+        BatchPredicate predicate2 = new BatchPredicate(new Status("APPLIED"), null, null, null);
+        BatchPredicate predicate3 = new BatchPredicate(new Status("REJECTED"), null, null, null);
 
         BatchDeleteCommand command1 = new BatchDeleteCommand(predicate1);
         BatchDeleteCommand command2 = new BatchDeleteCommand(predicate2);
