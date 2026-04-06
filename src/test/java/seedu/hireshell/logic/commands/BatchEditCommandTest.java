@@ -8,7 +8,6 @@ import static seedu.hireshell.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.hireshell.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,8 +32,7 @@ public class BatchEditCommandTest {
 
     @Test
     public void execute_validPredicateMatching_success() {
-        BatchPredicate predicate = new BatchPredicate(Optional.empty(), Optional.empty(),
-                Optional.of(new RatingCondition(">= 8.0")), Optional.empty());
+        BatchPredicate predicate = new BatchPredicate(null, null, new RatingCondition(">= 8.0"), null);
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_STATUS_BOB).build();
         BatchEditCommand command = new BatchEditCommand(predicate, descriptor);
@@ -57,8 +55,7 @@ public class BatchEditCommandTest {
 
     @Test
     public void execute_validPredicateNoMatching_throwsCommandException() {
-        BatchPredicate predicate = new BatchPredicate(Optional.of(new Status("non-existent-status")),
-                Optional.empty(), Optional.empty(), Optional.empty());
+        BatchPredicate predicate = new BatchPredicate(new Status("non-existent-status"), null, null, null);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_STATUS_BOB).build();
         BatchEditCommand command = new BatchEditCommand(predicate, descriptor);
 
@@ -67,10 +64,8 @@ public class BatchEditCommandTest {
 
     @Test
     public void equals() {
-        BatchPredicate predicate1 = new BatchPredicate(Optional.of(new Status("APPLIED")),
-                Optional.empty(), Optional.empty(), Optional.empty());
-        BatchPredicate predicate2 = new BatchPredicate(Optional.of(new Status("REJECTED")),
-                Optional.empty(), Optional.empty(), Optional.empty());
+        BatchPredicate predicate1 = new BatchPredicate(new Status("APPLIED"), null, null, null);
+        BatchPredicate predicate2 = new BatchPredicate(new Status("REJECTED"), null, null, null);
 
         EditPersonDescriptor descriptor1 = new EditPersonDescriptorBuilder().withAddress("ACCEPTED").build();
         EditPersonDescriptor descriptor2 = new EditPersonDescriptorBuilder().withAddress("REJECTED").build();

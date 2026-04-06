@@ -57,36 +57,36 @@ public class BatchEditCommandParser implements Parser<BatchEditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BatchEditCommand.MESSAGE_USAGE));
         }
 
-        Optional<Status> status = Optional.empty();
+        Status status = null;
         if (conditionMultimap.getValue(PREFIX_STATUS).isPresent()) {
-            status = Optional.of(ParserUtil.parseAddress(conditionMultimap.getValue(PREFIX_STATUS).get()));
+            status = ParserUtil.parseAddress(conditionMultimap.getValue(PREFIX_STATUS).get());
         }
 
-        Optional<List<Role>> roles = Optional.empty();
+        List<Role> roles = null;
         if (!conditionMultimap.getAllValues(PREFIX_ROLE).isEmpty()) {
             Set<Role> roleSet = ParserUtil.parseRoles(conditionMultimap.getAllValues(PREFIX_ROLE));
-            roles = Optional.of(List.copyOf(roleSet));
+            roles = List.copyOf(roleSet);
         }
 
-        Optional<RatingCondition> ratingCondition = Optional.empty();
+        RatingCondition ratingCondition = null;
         if (conditionMultimap.getValue(PREFIX_RATING).isPresent()) {
             try {
-                ratingCondition = Optional.of(new RatingCondition(conditionMultimap.getValue(PREFIX_RATING).get()));
+                ratingCondition = new RatingCondition(conditionMultimap.getValue(PREFIX_RATING).get());
             } catch (IllegalArgumentException e) {
                 throw new ParseException(RatingCondition.MESSAGE_CONSTRAINTS);
             }
         }
 
-        Optional<DateCondition> dateCondition = Optional.empty();
+        DateCondition dateCondition = null;
         if (conditionMultimap.getValue(PREFIX_DATE).isPresent()) {
             try {
-                dateCondition = Optional.of(new DateCondition(conditionMultimap.getValue(PREFIX_DATE).get()));
+                dateCondition = new DateCondition(conditionMultimap.getValue(PREFIX_DATE).get());
             } catch (IllegalArgumentException e) {
                 throw new ParseException(DateCondition.MESSAGE_CONSTRAINTS);
             }
         }
 
-        if (status.isEmpty() && roles.isEmpty() && ratingCondition.isEmpty() && dateCondition.isEmpty()) {
+        if (status == null && roles == null && ratingCondition == null && dateCondition == null) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BatchEditCommand.MESSAGE_USAGE));
         }
 

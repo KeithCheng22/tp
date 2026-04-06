@@ -1,7 +1,8 @@
 package seedu.hireshell.model.person;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import seedu.hireshell.model.role.Role;
@@ -10,17 +11,17 @@ import seedu.hireshell.model.role.Role;
  * Tests that a {@code Person}'s attributes match all given criteria.
  */
 public class BatchPredicate implements Predicate<Person> {
-    private final Optional<Status> status;
-    private final Optional<List<Role>> roles;
-    private final Optional<RatingCondition> ratingCondition;
-    private final Optional<DateCondition> dateCondition;
+    private final Status status;
+    private final List<Role> roles;
+    private final RatingCondition ratingCondition;
+    private final DateCondition dateCondition;
 
     /**
      * Constructs a {@code BatchPredicate} with the given conditions.
+     * Any parameter can be null to indicate no filter on that field.
      */
-    public BatchPredicate(Optional<Status> status, Optional<List<Role>> roles,
-                          Optional<RatingCondition> ratingCondition,
-                          Optional<DateCondition> dateCondition) {
+    public BatchPredicate(Status status, List<Role> roles,
+                          RatingCondition ratingCondition, DateCondition dateCondition) {
         this.status = status;
         this.roles = roles;
         this.ratingCondition = ratingCondition;
@@ -29,10 +30,21 @@ public class BatchPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        boolean matchStatus = status.map(s -> person.getStatus().equals(s)).orElse(true);
-        boolean matchRoles = roles.map(r -> person.getRoles().containsAll(r)).orElse(true);
-        boolean matchRating = ratingCondition.map(rc -> rc.test(person.getRating())).orElse(true);
-        boolean matchDate = dateCondition.map(dc -> dc.test(person.getCreatedAt())).orElse(true);
+        boolean matchStatus = status == null || person.getStatus().value.equalsIgnoreCase(status.value);
+        boolean matchRating = ratingCondition == null || ratingCondition.test(person.getRating());
+        boolean matchDate = dateCondition == null || dateCondition.test(person.getCreatedAt());
+        boolean matchRoles = true;
+        if (roles != null) {
+            List<String> personRoleNames = new ArrayList<>();
+            for (Role role : person.getRoles()) {
+                personRoleNames.add(role.roleName.toLowerCase());
+            }
+            List<String> filterRoleNames = new ArrayList<>();
+            for (Role role : roles) {
+                filterRoleNames.add(role.roleName.toLowerCase());
+            }
+            matchRoles = personRoleNames.containsAll(filterRoleNames);
+        }
 
         return matchStatus && matchRoles && matchRating && matchDate;
     }
@@ -49,9 +61,9 @@ public class BatchPredicate implements Predicate<Person> {
         }
 
         BatchPredicate otherPredicate = (BatchPredicate) other;
-        return status.equals(otherPredicate.status)
-                && roles.equals(otherPredicate.roles)
-                && ratingCondition.equals(otherPredicate.ratingCondition)
-                && dateCondition.equals(otherPredicate.dateCondition);
+        return Objects.equals(status, otherPredicate.status)
+                && Objects.equals(roles, otherPredicate.roles)
+                && Objects.equals(ratingCondition, otherPredicate.ratingCondition)
+                && Objects.equals(dateCondition, otherPredicate.dateCondition);
     }
 }

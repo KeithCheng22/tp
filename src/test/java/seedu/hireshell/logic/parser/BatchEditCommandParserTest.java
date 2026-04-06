@@ -4,13 +4,13 @@ import static seedu.hireshell.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hireshell.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.hireshell.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.hireshell.logic.commands.BatchEditCommand;
 import seedu.hireshell.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.hireshell.model.person.BatchPredicate;
+import seedu.hireshell.model.person.DateCondition;
+import seedu.hireshell.model.person.RatingCondition;
 import seedu.hireshell.model.person.Status;
 import seedu.hireshell.testutil.EditPersonDescriptorBuilder;
 
@@ -28,9 +28,8 @@ public class BatchEditCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsBatchEditCommand() {
-        BatchPredicate predicate = new BatchPredicate(Optional.of(new Status("APPLIED")),
-                Optional.empty(), Optional.of(new seedu.hireshell.model.person.RatingCondition("> 4.0")),
-                Optional.of(new seedu.hireshell.model.person.DateCondition("before 2026-01-01")));
+        BatchPredicate predicate = new BatchPredicate(new Status("APPLIED"), null,
+                new RatingCondition("> 4.0"), new DateCondition("before 2026-01-01"));
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withAddress("REJECTED")
                 .withDetails("Great candidate").withRoles().build();
 
