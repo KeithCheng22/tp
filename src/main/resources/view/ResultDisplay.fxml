@@ -7,5 +7,7 @@
   <TextArea fx:id="resultDisplay"
          styleClass="result-display"
          wrapText="true"
-         prefHeight="150"/>
+         prefHeight="150"
+         editable="false"
+         focusTraversable="false"/>
 </StackPane>
