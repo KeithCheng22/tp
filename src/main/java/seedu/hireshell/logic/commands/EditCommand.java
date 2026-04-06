@@ -9,7 +9,6 @@ import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_RATING;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_REFERRAL_STATUS;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.hireshell.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -95,7 +94,6 @@ public class EditCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
