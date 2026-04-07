@@ -62,7 +62,7 @@ public class BatchEditCommand extends Command {
         requireNonNull(model);
 
         List<Person> personsToEdit = new ArrayList<>();
-        for (Person person : model.getAddressBook().getPersonList()) {
+        for (Person person : new ArrayList<>(model.getFilteredPersonList())) {
             if (predicate.test(person)) {
                 personsToEdit.add(person);
             }

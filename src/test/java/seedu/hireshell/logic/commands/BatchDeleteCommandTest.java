@@ -52,14 +52,14 @@ public class BatchDeleteCommandTest {
     public void execute_validPredicateMatching_preservesPreviousFilter() {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList("Meier")));
 
-        BatchPredicate deletePredicate = new BatchPredicate(null, null, new RatingCondition(">= 9.0"), null);
+        BatchPredicate deletePredicate = new BatchPredicate(null, null, new RatingCondition(">= 8.0"), null);
         BatchDeleteCommand command = new BatchDeleteCommand(deletePredicate);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList("Meier")));
 
         ArrayList<Person> personsToDelete = new ArrayList<>();
-        for (Person person : expectedModel.getAddressBook().getPersonList()) {
+        for (Person person : new ArrayList<>(expectedModel.getFilteredPersonList())) {
             if (deletePredicate.test(person)) {
                 personsToDelete.add(person);
             }

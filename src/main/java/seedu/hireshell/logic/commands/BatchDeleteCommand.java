@@ -43,7 +43,7 @@ public class BatchDeleteCommand extends Command {
         requireNonNull(model);
 
         List<Person> personsToDelete = new ArrayList<>();
-        for (Person person : model.getAddressBook().getPersonList()) {
+        for (Person person : new ArrayList<>(model.getFilteredPersonList())) {
             if (predicate.test(person)) {
                 personsToDelete.add(person);
             }
