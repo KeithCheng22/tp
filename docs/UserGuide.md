@@ -92,7 +92,7 @@ simply push the 'tab' button again.
   e.g `n/NAME [r/ROLE]` can be used as `n/John Doe r/Software Engineer` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[r/ROLE]…​` can be used as ` ` (i.e. 0 times), `r/Software Engineer`, `r/Software Engineer r/AI Analyst` etc.
+  e.g. `[r/ROLE]…​` can be used as (i.e. 0 times), `r/Software Engineer`, `r/Software Engineer r/AI Analyst` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
