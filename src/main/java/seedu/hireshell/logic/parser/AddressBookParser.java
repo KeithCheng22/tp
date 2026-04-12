@@ -1,6 +1,7 @@
 package seedu.hireshell.logic.parser;
 
 import static seedu.hireshell.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.hireshell.logic.Messages.MESSAGE_UNKNOWN_ARGUMENTS;
 import static seedu.hireshell.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.logging.Logger;
@@ -79,18 +80,30 @@ public class AddressBookParser {
             return new SortCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_UNKNOWN_ARGUMENTS, ListCommand.MESSAGE_USAGE));
+            }
             return new ListCommand();
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_UNKNOWN_ARGUMENTS, ExitCommand.MESSAGE_USAGE));
+            }
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_UNKNOWN_ARGUMENTS, HelpCommand.MESSAGE_USAGE));
+            }
             return new HelpCommand();
 
         case ExportCommand.COMMAND_WORD:
+            if (!arguments.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_UNKNOWN_ARGUMENTS, ExportCommand.MESSAGE_USAGE));
+            }
             return new ExportCommand();
 
         default:

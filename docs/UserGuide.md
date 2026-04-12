@@ -71,7 +71,11 @@ _**Note that the app contains sample data.**_<br> \
 
    * `exit` : Exits the app.
 
-9. Refer to the [Features](#features) below for details of each command.
+9. Should you wish to scroll through the table, simply push the 'tab' button on your keyboard to tab into the table,
+and use the arrow keys to scroll up and down. To tab out of the table and into the command box, 
+simply push the 'tab' button again.
+
+10. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -168,7 +172,6 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Filtering persons by rating, status, date, or role: `filter`
 

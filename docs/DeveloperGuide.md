@@ -645,7 +645,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: Manually edit `data/hireshell.json` and change a `createdAt` value to an invalid format (e.g., "invalid-date").<br>
       Expected: HireShell starts with an empty address book due to data loading failure.
-git 
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Planned Enhancements**

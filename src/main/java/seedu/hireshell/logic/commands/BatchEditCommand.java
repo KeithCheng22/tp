@@ -3,7 +3,6 @@ package seedu.hireshell.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.hireshell.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -61,11 +60,15 @@ public class BatchEditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
-        List<Person> personsToEdit = new ArrayList<>(model.getFilteredPersonList());
+
+        List<Person> personsToEdit = new ArrayList<>();
+        for (Person person : new ArrayList<>(model.getFilteredPersonList())) {
+            if (predicate.test(person)) {
+                personsToEdit.add(person);
+            }
+        }
 
         if (personsToEdit.isEmpty()) {
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             throw new CommandException(MESSAGE_NO_PERSONS_MATCHED);
         }
 
@@ -79,7 +82,6 @@ public class BatchEditCommand extends Command {
             model.setPerson(personToEdit, editedPerson);
         }
 
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_BATCH_EDIT_SUCCESS, personsToEdit.size()));
     }
 

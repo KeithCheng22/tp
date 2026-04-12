@@ -24,6 +24,7 @@ import seedu.hireshell.logic.commands.FilterCommand;
 import seedu.hireshell.logic.commands.FindCommand;
 import seedu.hireshell.logic.commands.HelpCommand;
 import seedu.hireshell.logic.commands.ListCommand;
+import seedu.hireshell.logic.commands.SelectCommand;
 import seedu.hireshell.logic.commands.SortCommand;
 import seedu.hireshell.logic.parser.exceptions.ParseException;
 import seedu.hireshell.model.person.NameContainsKeywordsPredicate;
@@ -68,13 +69,13 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(ExitCommand.COMMAND_WORD + "3"));
     }
 
     @Test
     public void parseCommand_export() throws Exception {
         assertTrue(parser.parseCommand(ExportCommand.COMMAND_WORD) instanceof ExportCommand);
-        assertTrue(parser.parseCommand(ExportCommand.COMMAND_WORD + " 3") instanceof ExportCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(ExportCommand.COMMAND_WORD + "asd"));
     }
 
     @Test
@@ -94,19 +95,23 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(HelpCommand.COMMAND_WORD + "asd"));
     }
 
     @Test
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(ListCommand.COMMAND_WORD + "1209"));
     }
 
     @Test
     public void parseCommand_sort() throws Exception {
         assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " rt/asc") instanceof SortCommand);
         assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " rt/desc") instanceof SortCommand);
+    }
+
+    public void parseCommand_select() throws Exception {
+        assertTrue(parser.parseCommand(SelectCommand.COMMAND_WORD + "5") instanceof SelectCommand);
     }
 
     @Test

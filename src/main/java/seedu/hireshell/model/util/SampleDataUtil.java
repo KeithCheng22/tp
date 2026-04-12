@@ -24,22 +24,27 @@ public class SampleDataUtil {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Rating("8.5"), new Status("Accepted"),
-                getRoleSet("friends"), ReferralStatus.REFERRED, new Details("")),
+                getRoleSet("Software Engineer"), ReferralStatus.REFERRED,
+                    new Details("")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Rating("9.0"), new Status("Offered"),
-                getRoleSet("colleagues", "friends"), ReferralStatus.REFERRED, new Details("Met at career fair")),
+                getRoleSet("QA Engineer", "Software Engineer"), ReferralStatus.REFERRED,
+                    new Details("Met at career fair")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Rating("6.0"), new Status("Offered"),
-                getRoleSet("neighbours"), ReferralStatus.REFERRED, new Details("Found through Linkedin")),
+                getRoleSet("Database Engineer"), ReferralStatus.REFERRED,
+                    new Details("Found through Linkedin")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Rating("7.0"), new Status("Accepted"),
-                getRoleSet("family"), ReferralStatus.REFERRED, new Details("Last contacted on 12/02/2026")),
+                getRoleSet("UI Designer"), ReferralStatus.REFERRED,
+                    new Details("Last contacted on 12/02/2026")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Rating("9.5"), new Status("Offered"),
-                getRoleSet("classmates"), ReferralStatus.REFERRED, new Details("")),
+                getRoleSet("Marketing Manager"), ReferralStatus.REFERRED,
+                    new Details("")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Rating("5.5"), new Status("Rejected"),
-                getRoleSet("colleagues"), ReferralStatus.REFERRED, new Details(""))
+                getRoleSet("QA Engineer"), ReferralStatus.REFERRED, new Details(""))
         };
     }
 

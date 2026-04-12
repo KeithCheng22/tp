@@ -7,6 +7,7 @@ import static seedu.hireshell.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.hireshell.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +15,8 @@ import seedu.hireshell.model.Model;
 import seedu.hireshell.model.ModelManager;
 import seedu.hireshell.model.UserPrefs;
 import seedu.hireshell.model.person.BatchPredicate;
+import seedu.hireshell.model.person.NameContainsKeywordsPredicate;
+import seedu.hireshell.model.person.Person;
 import seedu.hireshell.model.person.RatingCondition;
 import seedu.hireshell.model.person.Status;
 
@@ -31,11 +34,39 @@ public class BatchDeleteCommandTest {
         BatchDeleteCommand command = new BatchDeleteCommand(predicate);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.updateFilteredPersonList(predicate);
-        int deletedCount = expectedModel.getFilteredPersonList().size();
+        ArrayList<Person> personsToDelete = new ArrayList<>();
+        for (Person person : expectedModel.getAddressBook().getPersonList()) {
+            if (predicate.test(person)) {
+                personsToDelete.add(person);
+            }
+        }
+        int deletedCount = personsToDelete.size();
 
-        new ArrayList<>(expectedModel.getFilteredPersonList()).forEach(expectedModel::deletePerson);
-        expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        personsToDelete.forEach(expectedModel::deletePerson);
+
+        String expectedMessage = String.format(BatchDeleteCommand.MESSAGE_BATCH_DELETE_SUCCESS, deletedCount);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validPredicateMatching_preservesPreviousFilter() {
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList("Meier")));
+
+        BatchPredicate deletePredicate = new BatchPredicate(null, null, new RatingCondition(">= 8.0"), null);
+        BatchDeleteCommand command = new BatchDeleteCommand(deletePredicate);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList("Meier")));
+
+        ArrayList<Person> personsToDelete = new ArrayList<>();
+        for (Person person : new ArrayList<>(expectedModel.getFilteredPersonList())) {
+            if (deletePredicate.test(person)) {
+                personsToDelete.add(person);
+            }
+        }
+        int deletedCount = personsToDelete.size();
+
+        personsToDelete.forEach(expectedModel::deletePerson);
 
         String expectedMessage = String.format(BatchDeleteCommand.MESSAGE_BATCH_DELETE_SUCCESS, deletedCount);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
