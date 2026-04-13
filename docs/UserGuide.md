@@ -81,16 +81,16 @@ simply push the 'tab' button again.
 
 ## List of fields
 
-| Field Name     | Explanation, Examples                                                                                                                           |
-|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| **`n/NAME`**   | Name of the contact. <br> e.g., `n/James Ho `                                                                                                   |
-| **`p/PHONE_NUMBER`** | Contact's Phone number.<br> e.g., `p/91234567`                                                                                                  |
-| **`e/EMAIL`**  | Contact's Email address.<br> e.g., `e/jamesho@example.com`                                                                                      |
-| **`[rt/RATING]`** | Contact's Rating. Optional field, defaults to `0.0` if not entered.<br> e.g., `rt/8.5`                                                          |
-| **`s/STATUS`** | Status of the contact's application.<br> e.g., `s/Rejected`                                                                                     |
+| Field Name               | Explanation, Examples                                                                                                                           |
+|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| **`n/NAME`**             | Name of the contact. <br> e.g., `n/James Ho `                                                                                                   |
+| **`p/PHONE_NUMBER`**     | Contact's Phone number.<br> e.g., `p/91234567`                                                                                                  |
+| **`e/EMAIL`**            | Contact's Email address.<br> e.g., `e/jamesho@example.com`                                                                                      |
+| **`[rt/RATING]`**        | Contact's Rating. Optional field, defaults to `0.0` if not entered.<br> e.g., `rt/8.5`                                                          |
+| **`s/STATUS`**           | Status of the contact's application.<br> e.g., `s/Rejected`                                                                                     |
 | **`rs/REFERRAL_STATUS`** | Referral Status of the contact (i.e. was the contact referred by someone?). Only accepts 'Yes' and 'No' (Non-case sensitive).<br> e.g.,`rs/Yes` |
-| **`[r/ROLE]…`​** | Role that the contact applied for. Optional field, contact can have more than 1 role.<br> e.g., `r/SoftwareEngineer r/DevOps`                   |
-| **`[d/DETAIL]`** | Additional details related to the contact. Optional field.<br> e.g., `d/Met at career fair`                                                     |
+| **`[r/ROLE]…`​**         | Role that the contact applied for. Optional field, contact can have more than 1 role.<br> e.g., `r/SoftwareEngineer r/DevOps`                   |
+| **`[d/DETAIL]`**         | Additional details related to the contact. Optional field.<br> e.g., `d/Met at career fair`                                                     |
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -132,7 +132,7 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add  n/NAME p/PHONE e/EMAIL [rt/RATING] s/STATUS rs/REFERRAL_STATUS [r/ROLE] [d/DETAIL]…​`
+Format: `add  n/NAME p/PHONE e/EMAIL [rt/RATING] s/STATUS rs/REFERRAL_STATUS [d/DETAIL] [r/ROLE]…​`
 
 * Persons with the same name/phone number can be added
 * Persons with **both** the same name and phone number will be considered a duplicate person, 
@@ -158,7 +158,7 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE] [d/DETAIL]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [d/DETAIL] [r/ROLE]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
