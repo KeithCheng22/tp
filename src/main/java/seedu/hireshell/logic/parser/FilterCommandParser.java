@@ -24,7 +24,9 @@ import seedu.hireshell.model.person.Rating;
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
-    private static final Pattern RATING_FILTER_PATTERN = Pattern.compile("(?<operator>[><]=?|==)?\\s*(?<value>.*)");
+    public static final String MESSAGE_RATING_FILTER_FORMAT = "Rating filter format is: [operator] RATING (0-10). "
+            + "Supported operators: >, >=, <, <=, ==.";
+    private static final Pattern RATING_FILTER_PATTERN = Pattern.compile("(?<operator>[><]=?|==)?\\s*(?<value>.+)");
     private static final Pattern DATE_FILTER_PATTERN = Pattern.compile("(?<operator>before|after|on)\\s+(?<value>.*)");
 
     /**
@@ -39,6 +41,10 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_RATING, PREFIX_STATUS, PREFIX_DATE,
                 PREFIX_ROLE);
 
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+        }
+
         if (!argMultimap.getValue(PREFIX_RATING).isPresent() && !argMultimap.getValue(PREFIX_STATUS).isPresent()
                 && !argMultimap.getValue(PREFIX_DATE).isPresent() && !argMultimap.getValue(PREFIX_ROLE).isPresent()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
@@ -51,14 +57,26 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             ratingFilter = parseRatingFilter(argMultimap.getValue(PREFIX_RATING).get());
         }
 
-        String statusFilter = argMultimap.getValue(PREFIX_STATUS).orElse(null);
+        String statusFilter = null;
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            statusFilter = argMultimap.getValue(PREFIX_STATUS).get().trim();
+            if (statusFilter.isEmpty()) {
+                throw new ParseException("Status filter value cannot be empty.");
+            }
+        }
 
         DateFilter dateFilter = null;
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             dateFilter = parseDateFilter(argMultimap.getValue(PREFIX_DATE).get());
         }
 
-        String roleFilter = argMultimap.getValue(PREFIX_ROLE).orElse(null);
+        String roleFilter = null;
+        if (argMultimap.getValue(PREFIX_ROLE).isPresent()) {
+            roleFilter = argMultimap.getValue(PREFIX_ROLE).get().trim();
+            if (roleFilter.isEmpty()) {
+                throw new ParseException("Role filter value cannot be empty.");
+            }
+        }
 
         return new FilterCommand(new PersonMatchesFiltersPredicate(ratingFilter, statusFilter, dateFilter, roleFilter));
     }
@@ -69,13 +87,18 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     private RatingFilter parseRatingFilter(String ratingArg) throws ParseException {
         Matcher matcher = RATING_FILTER_PATTERN.matcher(ratingArg.trim());
         if (!matcher.matches()) {
-            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+            throw new ParseException(MESSAGE_RATING_FILTER_FORMAT);
         }
 
         String operatorStr = matcher.group("operator");
-        String valueStr = matcher.group("value");
+        String valueStr = matcher.group("value").trim();
 
         if (!Rating.isValidRating(valueStr)) {
+            // Check if valueStr itself contains what looks like an operator,
+            // which would mean the overall format is wrong (like '>> 5')
+            if (valueStr.matches(".*[><=].*")) {
+                throw new ParseException(MESSAGE_RATING_FILTER_FORMAT);
+            }
             throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
         }
 
