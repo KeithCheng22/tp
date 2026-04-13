@@ -40,8 +40,7 @@ public class RatingTest {
         assertTrue(Rating.isValidRating("10")); // exactly 10
         assertTrue(Rating.isValidRating("0.0")); // zero with decimal
         assertTrue(Rating.isValidRating("8.5")); // standard decimal
-        assertTrue(Rating.isValidRating("10.00")); // 10 with multiple trailing zeros
-        assertTrue(Rating.isValidRating("3.14159")); // long decimal
+        assertTrue(Rating.isValidRating("10.0")); // 10 with one trailing zero
     }
 
     @Test

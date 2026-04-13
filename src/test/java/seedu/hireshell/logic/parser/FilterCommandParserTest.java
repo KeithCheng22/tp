@@ -104,11 +104,11 @@ public class FilterCommandParserTest {
     public void parse_invalidRating_throwsParseException() {
         // invalid rating value
         assertParseFailure(parser, " " + PREFIX_RATING + ">= abc",
-                "Ratings should be a number between 0 and 10 (decimals allowed).");
+                "Ratings should be a number between 0 and 10 (Up to 1 decimal place allowed).");
 
         // rating value out of range
         assertParseFailure(parser, " " + PREFIX_RATING + " 11",
-                "Ratings should be a number between 0 and 10 (decimals allowed).");
+                "Ratings should be a number between 0 and 10 (Up to 1 decimal place allowed).");
     }
 
     @Test
