@@ -433,8 +433,8 @@ unless specified otherwise)
 
 
 **MSS:**
-1. Recruiter enters the `batch delete` command with one or more filter conditions (status, role, and/or rating).
-2. HireShell identifies all candidates matching **all** the specified conditions.
+1. Recruiter enters the `batch delete` command with one or more filter conditions (status, role, rating, and/or date).
+2. HireShell identifies all candidates in the **current list view** matching **all** the specified conditions.
 3. HireShell deletes the matching candidates and displays a confirmation with the number of candidates deleted.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use case ends.
@@ -458,7 +458,7 @@ unless specified otherwise)
 
 **MSS:**
 1. Recruiter enters the `batch edit` command with filter conditions on the left of `to` and edit fields on the right.
-2. HireShell identifies all candidates matching **all** the specified filter conditions.
+2. HireShell identifies all candidates in the **current list view** matching **all** the specified filter conditions.
 3. HireShell applies the specified edits to all matching candidates and displays a success confirmation.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use case ends.
@@ -486,7 +486,7 @@ unless specified otherwise)
     * Use case ends.
 
 * 3a. Applying the edits would create a duplicate candidate (same name and phone number as an existing entry).
-    * 3a1. HireShell displays an error message indicating the duplicate conflict.
+    * 3a1. HireShell displays an error message indicating the duplicate conflict. No candidates are edited.
     * Use case ends.
 
 ### Non-Functional Requirements

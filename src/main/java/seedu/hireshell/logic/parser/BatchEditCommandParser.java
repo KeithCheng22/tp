@@ -41,13 +41,28 @@ public class BatchEditCommandParser implements Parser<BatchEditCommand> {
         requireNonNull(args);
 
         String trimmedArgs = args.trim();
-        String[] splitArgs = trimmedArgs.split(" to ");
-        if (splitArgs.length != 2) {
+
+        String separator = " to ";
+        int splitIndex = -1;
+        int searchFrom = 0;
+        while (searchFrom <= trimmedArgs.length()) {
+            int idx = trimmedArgs.indexOf(separator, searchFrom);
+            if (idx == -1) {
+                break;
+            }
+            String afterSep = trimmedArgs.substring(idx + separator.length()).trim();
+            if (afterSep.matches("[a-z]+/.*")) {
+                splitIndex = idx;
+                break;
+            }
+            searchFrom = idx + 1;
+        }
+        if (splitIndex == -1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BatchEditCommand.MESSAGE_USAGE));
         }
 
-        String conditionArgs = " " + splitArgs[0].trim();
-        String editArgs = " " + splitArgs[1].trim();
+        String conditionArgs = " " + trimmedArgs.substring(0, splitIndex).trim();
+        String editArgs = " " + trimmedArgs.substring(splitIndex + separator.length()).trim();
 
         // 1. Parse conditions
         ArgumentMultimap conditionMultimap =

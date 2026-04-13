@@ -72,17 +72,20 @@ public class BatchEditCommand extends Command {
             throw new CommandException(MESSAGE_NO_PERSONS_MATCHED);
         }
 
+        List<Person> editedPersons = new ArrayList<>();
         for (Person personToEdit : personsToEdit) {
             Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
             if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
                 throw new CommandException(MESSAGE_DUPLICATE_PERSON);
             }
-
-            model.setPerson(personToEdit, editedPerson);
+            editedPersons.add(editedPerson);
         }
 
-        return new CommandResult(String.format(MESSAGE_BATCH_EDIT_SUCCESS, personsToEdit.size()));
+        for (int i = 0; i < personsToEdit.size(); i++) {
+            model.setPerson(personsToEdit.get(i), editedPersons.get(i));
+        }
+
+        return new CommandResult(String.format(MESSAGE_BATCH_EDIT_SUCCESS, editedPersons.size()));
     }
 
     /**
