@@ -116,7 +116,7 @@ public class PersonListPanel extends UiPart<Region> {
         referralColumn.setCellValueFactory(cellData ->
                 new ReadOnlyStringWrapper(cellData.getValue().getReferralStatus().toString()));
 
-        dateColumn.setCellValueFactory(cellData ->         // 9. Date Column
+        dateColumn.setCellValueFactory(cellData -> // 9. Date Column
                 new ReadOnlyStringWrapper(cellData.getValue().getCreatedAt().toLocalDate().toString()));
 
         personTableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
