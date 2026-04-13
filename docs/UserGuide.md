@@ -109,13 +109,13 @@ Certain columns in the table (that may contain long entries) can be manually res
   e.g `n/NAME [r/ROLE]` can be used as `n/John Doe r/Software Engineer` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[r/ROLE]…​` can be used as ` ` (i.e. 0 times), `r/Software Engineer`, `r/Software Engineer r/AI Analyst` etc.
+  e.g. `[r/ROLE]…​` can be used as (i.e. 0 times), `r/Software Engineer`, `r/Software Engineer r/AI Analyst` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit`, and `clear`) will result in an error.<br>
+  e.g. if the command specifies `help 123`, an error message will show "Unknown Arguments found!".
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
@@ -298,7 +298,7 @@ Exports all contact data from the address book into a CSV file format, which can
 Format: `export`
 
 * The command exports the entire list of persons currently stored in the address book.
-* Extraneous parameters for this command (e.g., `export 123`) will be ignored.
+* Extraneous parameters for this command (e.g., `export 123`) will result in an error.
 * The data is typically saved in the same directory where the application is located.
 
 Example:
