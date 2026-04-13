@@ -620,7 +620,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `batch edit r/Intern to rt/10.0 s/Accepted`<br>
       Expected: All persons with the "Intern" role have their rating updated to 10.0 and status to "Accepted".
 
-   1. Test case: `batch edit rt/> 9.0 to rs/REFERRED`<br>
+   1. Test case: `batch edit rt/> 9.0 to rs/Yes`<br>
       Expected: All persons with rating > 9.0 have their referral status updated to REFERRED.
 
 ### Exporting data
