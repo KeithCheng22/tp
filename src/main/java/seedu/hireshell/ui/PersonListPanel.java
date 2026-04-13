@@ -40,6 +40,8 @@ public class PersonListPanel extends UiPart<Region> {
     private TableColumn<Person, String> emailColumn;
     @FXML
     private TableColumn<Person, String> referralColumn;
+    @FXML
+    private TableColumn<Person, String> dateColumn;
 
     private final BiConsumer<Person, Integer> onPersonSelected;
     private boolean isSyncingSelection;
@@ -114,6 +116,10 @@ public class PersonListPanel extends UiPart<Region> {
         referralColumn.setCellValueFactory(cellData ->
                 new ReadOnlyStringWrapper(cellData.getValue().getReferralStatus().toString()));
 
+        // 9. Date Column
+        dateColumn.setCellValueFactory(cellData ->
+                new ReadOnlyStringWrapper(cellData.getValue().getCreatedAt().toLocalDate().toString()));
+
         personTableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         // Setting the widths of each column
         NumberBinding dynamicColumnWidth = personTableView.widthProperty()
@@ -121,6 +127,7 @@ public class PersonListPanel extends UiPart<Region> {
                 .subtract(ratingColumn.widthProperty())
                 .subtract(contactColumn.widthProperty())
                 .subtract(referralColumn.widthProperty())
+                .subtract(dateColumn.widthProperty())
                 .subtract(30)
                 .divide(4);
 

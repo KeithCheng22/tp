@@ -83,7 +83,7 @@ simply push the 'tab' button again.
 
 | Field Name               | Explanation, Examples                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 |--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **`n/NAME`**             | Name of the contact. Only accepts alphanumeric characters, with a max of 1 space between words.<br> e.g., `n/James Ho`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **`n/NAME`**             | Name of the contact. Only accepts alphanumeric characters. Names with 2 or more consecutive spaces will be rejected.<br> e.g., `n/James Ho`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | **`p/PHONE_NUMBER`**     | Contact's Phone number. Only accepts numbers, and should be at least 3 digits long, to a max of 15 digits.<br> e.g., `p/91234567`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **`e/EMAIL`**            | Contact's Email address.<br/>Email should be of the format local-part@domain and adhere to the following constraints:<br/>1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+ _ . -). The local-part may not start or end with any special characters.<br/>2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.<br/>The domain name must:<br/>    - end with a domain label at least 2 characters long<br/>    - have each domain label start and end with alphanumeric characters<br/>    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br> e.g., `e/jamesho@example.com` |
 | **`[rt/RATING]`**        | Company's rating of the contact. Optional field, defaults to `0.0` if not entered. Only accepts numbers between 0 to 10 (decimals allowed).<br> e.g., `rt/8.5`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
@@ -201,6 +201,7 @@ Format: `filter [rt/RATING_FILTER] [s/STATUS] [dt/DATE_FILTER] [r/ROLE]`
 * `STATUS` matches the status field of the person (case-insensitive, partial matches allowed).
 * `DATE_FILTER` can include an operator (`before`, `after`, `on`) followed by a date in `YYYY-MM-DD` format. If no operator is provided, `on` is assumed.
 * `ROLE` matches one of the roles of the person (case-insensitive, partial matches allowed).
+* Persons with no `ROLE` cannot be filtered (i.e. cannot do filter r/) 
 * If multiple criteria are provided, only persons matching **all** of them will be shown.
 
 Examples:
@@ -221,6 +222,7 @@ Format: `sort rt/ORDER` or `sort dt/ORDER`
 * `rt/ORDER` sorts persons by their rating.
 * `dt/ORDER` sorts persons by the date they were added.
 * You can only sort by one field at a time.
+* Sorting by rating and editing a persons' rating after will preserve the order in the list, moving the person.
 
 Examples:
 * `sort rt/desc` sorts persons from the highest rating to the lowest.
@@ -331,7 +333,8 @@ HireShell data are saved automatically as a JSON file `[JAR file location]/data/
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, HireShell will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+If your changes to the data file makes its format invalid, HireShell starts with an empty in-memory address book on the next run. The corrupted file remains as-is until you run a command; after that, HireShell rewrites your data file with the current app data. Hence, it is recommended to take a backup of the file before editing it.<br>
+<br>
 Furthermore, certain edits can cause the HireShell to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
@@ -366,8 +369,10 @@ _Details coming soon ..._
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
+3. **When using “/” in field values**, the application may misinterpret the input as additional parameters instead of part of the intended value. This is because “/” is reserved as a parameter prefix (e.g., n/, p/, rs/, rt/). The remedy is to avoid using “/” in field values (e.g., use UIUX designer instead of UI/UX designer).
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary

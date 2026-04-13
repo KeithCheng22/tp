@@ -539,15 +539,6 @@ testers are expected to do more *exploratory* testing.
         ```
       Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-1. Saving window preferences
-
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
-
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
@@ -672,12 +663,13 @@ testers are expected to do more *exploratory* testing.
    We plan to allow users to sort candidates alphabetically by name using `sort n/asc` or `sort n/desc`.
 
 
-6. **Implement tie-breakers for sorting:** The current implementation of sorting only allows users to sort by rating. However, multiple candidates can have the same rating, in which case the order of those candidates will just be by date added.
-   We plan to allow users to specify other fields, such as role or referral status. For example, `sort rt/desc rs/asc` will sort candidates by rating in descending order, and if there are ties in rating, those candidates will be sorted by referral status in ascending order (i.e. Referred candidates (Yes) will be shown before Non-referred (No) candidates).
+6. **Implement tie-breakers for sorting:** The current implementation supports sorting by only one field at a time (rt or dt). It does not support secondary sort keys for tie-breaking. We plan to allow multi-key sorting, such as sort rt/desc rs/asc, which would sort candidates by rating (descending) and then by referral status (ascending) when ratings are equal.
 
+7. **Allow use of “/” in field values:** The current implementation uses “/” as a parameter prefix (e.g., n/, p/, rs/ rt/), which causes any “/” within field values to be misinterpreted as a new parameter.
+   We plan to enhance the input parser to allow “/” to be used within field values (e.g., UI/UX designer, Raj s/o Muthu) without causing parsing errors.
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Effort **
+## **Appendix: Effort**
 
 This project started from the base AddressBook-Level3 (AB3) codebase and evolved it into a recruiter-focused product.
 

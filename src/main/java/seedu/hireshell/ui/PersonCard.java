@@ -44,6 +44,8 @@ public class PersonCard extends UiPart<Region> {
     private FlowPane roles;
     @FXML
     private Label referralStatus;
+    @FXML
+    private Label dateAdded;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -58,6 +60,7 @@ public class PersonCard extends UiPart<Region> {
         status.setText("Status: " + person.getStatus().value);
         email.setText("Email: " + person.getEmail().value);
         referralStatus.setText("Referral Status: " + person.getReferralStatus().toString());
+        dateAdded.setText("Date Added: " + person.getCreatedAt().toLocalDate().toString());
         person.getRoles().stream()
                 .sorted(Comparator.comparing(role -> role.roleName))
                 .forEach(role -> roles.getChildren().add(new Label(role.roleName)));

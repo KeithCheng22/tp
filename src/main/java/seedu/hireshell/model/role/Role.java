@@ -10,7 +10,7 @@ import static seedu.hireshell.commons.util.AppUtil.checkArgument;
 public class Role {
 
     public static final String MESSAGE_CONSTRAINTS = "Roles names should be alphanumeric (spaces are ok)";
-    public static final String VALIDATION_REGEX = "^[\\w ]+";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9 ]+";
 
     public final String roleName;
 
