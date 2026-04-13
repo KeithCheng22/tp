@@ -86,10 +86,10 @@ simply push the 'tab' button again.
 | **`n/NAME`**             | Name of the contact. <br> e.g., `n/James Ho `                                                                                                   |
 | **`p/PHONE_NUMBER`**     | Contact's Phone number.<br> e.g., `p/91234567`                                                                                                  |
 | **`e/EMAIL`**            | Contact's Email address.<br> e.g., `e/jamesho@example.com`                                                                                      |
-| **`[rt/RATING]`**        | Contact's Rating. Optional field, defaults to `0.0` if not entered.<br> e.g., `rt/8.5`                                                          |
+| **`[rt/RATING]`**        | Company's rating of the contact. Optional field, defaults to `0.0` if not entered.<br> e.g., `rt/8.5`                                           |
 | **`s/STATUS`**           | Status of the contact's application.<br> e.g., `s/Rejected`                                                                                     |
 | **`rs/REFERRAL_STATUS`** | Referral Status of the contact (i.e. was the contact referred by someone?). Only accepts 'Yes' and 'No' (Non-case sensitive).<br> e.g.,`rs/Yes` |
-| **`[r/ROLE]…`​**         | Role that the contact applied for. Optional field, contact can have more than 1 role.<br> e.g., `r/SoftwareEngineer r/DevOps`                   |
+| **`[r/ROLE]…`​**         | Role that the contact applied for. Optional field, each contact can have more than 1 role.<br> e.g., `r/SoftwareEngineer r/DevOps`              |
 | **`[d/DETAIL]`**         | Additional details related to the contact. Optional field.<br> e.g., `d/Met at career fair`                                                     |
 
 
