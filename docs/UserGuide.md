@@ -97,8 +97,8 @@ simply push the 'tab' button again.
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit`) will result in an error, with the exception of `clear`<br>
-  e.g. if the command specifies `help 123`, an error message will show "Unknown Arguments found!", while `clear 123` will be interpreted as `clear`.
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit`, and `clear`) will result in an error.<br>
+  e.g. if the command specifies `help 123`, an error message will show "Unknown Arguments found!".
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
