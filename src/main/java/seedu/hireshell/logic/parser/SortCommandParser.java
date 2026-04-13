@@ -25,6 +25,12 @@ public class SortCommandParser implements Parser<SortCommand> {
     public SortCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_RATING, PREFIX_DATE);
 
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_RATING, PREFIX_DATE);
+
         Optional<String> ratingOrder = argMultimap.getValue(PREFIX_RATING);
         Optional<String> dateOrder = argMultimap.getValue(PREFIX_DATE);
 

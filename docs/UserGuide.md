@@ -79,6 +79,23 @@ simply push the 'tab' button again.
 
 --------------------------------------------------------------------------------------------------------------------
 
+## List of fields
+
+| Field Name               | Explanation, Examples                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+|--------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **`n/NAME`**             | Name of the contact. Only accepts alphanumeric characters.<br> e.g., `n/James Ho`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **`p/PHONE_NUMBER`**     | Contact's Phone number. Only accepts numbers, and should be at least 3 digits long, to a max of 15 digits.<br> e.g., `p/91234567`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **`e/EMAIL`**            | Contact's Email address.<br/>Email should be of the format local-part@domain and adhere to the following constraints:<br/>1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (+ _ . -). The local-part may not start or end with any special characters.<br/>2. This is followed by a '@' and then a domain name. The domain name is made up of domain labels separated by periods.<br/>The domain name must:<br/>    - end with a domain label at least 2 characters long<br/>    - have each domain label start and end with alphanumeric characters<br/>    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.<br> e.g., `e/jamesho@example.com` |
+| **`[rt/RATING]`**        | Company's rating of the contact. Optional field, defaults to `0.0` if not entered. Only accepts numbers between 0 to 10 (decimals allowed).<br> e.g., `rt/8.5`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **`s/STATUS`**           | Status of the contact's application.<br> e.g., `s/Rejected`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| **`rs/REFERRAL_STATUS`** | Referral Status of the contact (i.e. was the contact referred by someone?). Only accepts 'Yes' and 'No' (Non-case sensitive).<br> e.g.,`rs/Yes`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| **`[r/ROLE]…`​**         | Role that the contact applied for. Optional field, each contact can have more than 1 role.<br> e.g., `r/Software Engineer r/DevOps`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| **`[d/DETAIL]`**         | Additional details related to the contact. Optional field.<br> e.g., `d/Met at career fair`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+
+Certain columns in the table (that may contain long entries) can be manually resized to fit the length of the entry. If the entry is still too long, it will be truncated with '...'.
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## Features
 
 <box type="info" seamless>
@@ -116,7 +133,7 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add  n/NAME p/PHONE e/EMAIL [rt/RATING] s/STATUS rs/REFERRAL_STATUS [r/ROLE] [d/DETAIL]…​`
+Format: `add  n/NAME p/PHONE e/EMAIL [rt/RATING] s/STATUS rs/REFERRAL_STATUS [d/DETAIL] [r/ROLE]…​`
 
 * Persons with the same name/phone number can be added
 * Persons with **both** the same name and phone number will be considered a duplicate person, 
@@ -142,7 +159,7 @@ Format: `list`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE] [d/DETAIL]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [d/DETAIL] [r/ROLE]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -225,36 +242,41 @@ Examples:
 
 ### Batch deleting persons : `batch delete`
 
-Deletes all persons in the address book whose attributes match the specified condition(s). You can specify conditions based on status, roles, and a mathematical rating comparison.
+Deletes all persons in the **current list view** whose attributes match the specified condition(s). You can specify conditions based on status, roles, rating, and date.
 
-Format: `batch delete [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION]`
+Format: `batch delete [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION] [dt/DATE_CONDITION]`
 
 * Deletes everyone matching **ALL** provided conditions.
 * At least one condition must be specified.
+* Only operates on the currently displayed list — use `filter` or `find` first to narrow the scope.
 * `RATING_CONDITION` must start with a valid mathematical operator (`<`, `<=`, `>`, `>=`, `==`) followed immediately by the rating value (e.g., `< 3.0` or `>= 5`).
+* `DATE_CONDITION` must start with `before` or `after` followed by a date in `YYYY-MM-DD` format (e.g., `before 2024-01-01`).
 * If multiple roles are provided, it will find persons who have **all** the listed roles.
 
 Examples:
-* `batch delete s/REJECTED` deletes all persons with a status of REJECTED.
-* `batch delete rt/< 3.0` deletes all persons whose rating is strictly less than 3.0.
+* `batch delete s/REJECTED` deletes all persons in the current view with a status of REJECTED.
+* `batch delete rt/< 3.0` deletes all persons in the current view whose rating is strictly less than 3.0.
 * `batch delete s/APPLIED rt/<= 2.0 r/Intern` deletes all persons applying for an Intern role, currently APPLIED, and having a rating of 2.0 or lower.
+* `batch delete dt/before 2024-01-01` deletes all persons in the current view added before 1 January 2024.
 
 ### Batch editing persons : `batch edit`
 
-Edits all persons in the address book whose attributes match the specified condition(s). The input is separated by the `to` keyword, where the left side dictates the filters and the right side dictates the edits to apply.
+Edits all persons in the **current list view** whose attributes match the specified condition(s). The input is separated by the `to` keyword, where the left side dictates the filters and the right side dictates the edits to apply.
 
-Format: `batch edit [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION] to [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]...`
+Format: `batch edit [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION] [dt/DATE_CONDITION] to [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]...`
 
 * Edits everyone matching **ALL** the filter conditions specified on the left of `to`.
-* Applies the exact exact new values provided on the right of `to`.
-* The rating condition works exactly as it does in `batch delete`.
+* Applies the exact new values provided on the right of `to`.
+* Only operates on the currently displayed list — use `filter` or `find` first to narrow the scope.
+* The rating and date conditions work exactly as they do in `batch delete`.
 * At least one condition must be provided on the left side, and at least one edit field must be provided on the right side.
-* If a person is updated in a way that causes their details to exactly match an already existing person (ignoring roles/statuses), an error will be thrown to prevent duplicate persons.
+* If any edited person would be a duplicate of an existing person, **no changes are made** and an error is shown.
+* Status values containing the word `to` (e.g., `Ready to Interview`) are supported.
 
 Examples:
 * `batch edit r/Intern to s/REJECTED` changes the status to REJECTED for all persons who have the "Intern" role.
 * `batch edit s/APPLIED to rt/5.0` sets the rating to 5.0 for everyone who currently has an APPLIED status.
-* `batch edit rt/< 3.0 s/APPLIED to s/REJECTED rt/0.0 rs/Unsuccessful` finds anyone who is APPLIED with a rating < 3.0, and simultaneously changes their status to REJECTED, rating to 0.0, and referral status to Unsuccessful.
+* `batch edit rt/< 3.0 s/APPLIED to s/REJECTED rt/0.0 rs/No` finds anyone who is APPLIED with a rating < 3.0, and simultaneously changes their status to REJECTED, rating to 0.0, and referral status to Unsuccessful.
 * `batch edit r/Frontend rt/> 8.0 to r/Frontend Lead s/INTERVIEWED` finds anyone with a Frontend role and a rating > 8.0, and updates their role to Frontend Lead and status to INTERVIEWED.
 
 ### Clearing all entries : `clear`
@@ -353,8 +375,8 @@ _Details coming soon ..._
 | Action                                                      | Format, Examples                                                                                                                                                                            |
 |-------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **[Add](#adding-a-person-add)**                             | `add n/NAME p/PHONE_NUMBER e/EMAIL rt/RATING s/STATUS rs/REFERRAL_STATUS r/ROLE…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com rt/8.5 s/Approved rs/Yes r/SoftwareEngineer` |
-| **[Batch Delete](#batch-deleting-persons-batch-delete)**    | `batch delete [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION]`<br> e.g., `batch delete rt/< 3.0 s/REJECTED`                                                                                    |
-| **[Batch Edit](#batch-editing-persons-batch-edit)**         | `batch edit [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION] to [EDIT_FIELDS]`<br> e.g., `batch edit r/Intern to s/REJECTED`                                                                    |
+| **[Batch Delete](#batch-deleting-persons-batch-delete)**    | `batch delete [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION] [dt/DATE_CONDITION]`<br> e.g., `batch delete rt/< 3.0 s/REJECTED`                                                                |
+| **[Batch Edit](#batch-editing-persons-batch-edit)**         | `batch edit [s/STATUS] [r/ROLE]... [rt/RATING_CONDITION] [dt/DATE_CONDITION] to [EDIT_FIELDS]`<br> e.g., `batch edit r/Intern to s/REJECTED`                                                |
 | **[Clear](#clearing-all-entries-clear)**                    | `clear`                                                                                                                                                                                     |
 | **[Delete](#deleting-a-person-delete)**                     | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                         |
 | **[Edit](#editing-a-person-edit)**                          | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [rt/RATING] [s/STATUS] [rs/REFERRAL_STATUS] [r/ROLE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com rt/9.0`                         |

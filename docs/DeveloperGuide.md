@@ -180,7 +180,7 @@ Step 2. The user executes `delete 5` command to delete the 5th person in the add
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` (truncated add command) to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
@@ -433,8 +433,8 @@ unless specified otherwise)
 
 
 **MSS:**
-1. Recruiter enters the `batch delete` command with one or more filter conditions (status, role, and/or rating).
-2. HireShell identifies all candidates matching **all** the specified conditions.
+1. Recruiter enters the `batch delete` command with one or more filter conditions (status, role, rating, and/or date).
+2. HireShell identifies all candidates in the **current list view** matching **all** the specified conditions.
 3. HireShell deletes the matching candidates and displays a confirmation with the number of candidates deleted.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use case ends.
@@ -458,7 +458,7 @@ unless specified otherwise)
 
 **MSS:**
 1. Recruiter enters the `batch edit` command with filter conditions on the left of `to` and edit fields on the right.
-2. HireShell identifies all candidates matching **all** the specified filter conditions.
+2. HireShell identifies all candidates in the **current list view** matching **all** the specified filter conditions.
 3. HireShell applies the specified edits to all matching candidates and displays a success confirmation.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use case ends.
@@ -486,7 +486,7 @@ unless specified otherwise)
     * Use case ends.
 
 * 3a. Applying the edits would create a duplicate candidate (same name and phone number as an existing entry).
-    * 3a1. HireShell displays an error message indicating the duplicate conflict.
+    * 3a1. HireShell displays an error message indicating the duplicate conflict. No candidates are edited.
     * Use case ends.
 
 ### Non-Functional Requirements
@@ -620,7 +620,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `batch edit r/Intern to rt/10.0 s/Accepted`<br>
       Expected: All persons with the "Intern" role have their rating updated to 10.0 and status to "Accepted".
 
-   1. Test case: `batch edit rt/> 9.0 to rs/REFERRED`<br>
+   1. Test case: `batch edit rt/> 9.0 to rs/Yes`<br>
       Expected: All persons with rating > 9.0 have their referral status updated to REFERRED.
 
 ### Exporting data

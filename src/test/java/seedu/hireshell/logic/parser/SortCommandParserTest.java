@@ -1,5 +1,6 @@
 package seedu.hireshell.logic.parser;
 
+import static seedu.hireshell.logic.Messages.MESSAGE_DUPLICATE_FIELDS;
 import static seedu.hireshell.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.hireshell.logic.parser.CliSyntax.PREFIX_RATING;
@@ -17,6 +18,12 @@ public class SortCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidPreamble_throwsParseException() {
+        assertParseFailure(parser, " abc " + PREFIX_RATING + "asc",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -38,6 +45,14 @@ public class SortCommandParserTest {
     public void parse_bothPrefixes_throwsParseException() {
         assertParseFailure(parser, " " + PREFIX_RATING + "asc " + PREFIX_DATE + "desc",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_duplicatePrefixes_throwsParseException() {
+        assertParseFailure(parser, " " + PREFIX_RATING + "asc " + PREFIX_RATING + "desc",
+                MESSAGE_DUPLICATE_FIELDS + PREFIX_RATING);
+        assertParseFailure(parser, " " + PREFIX_DATE + "asc " + PREFIX_DATE + "desc",
+                MESSAGE_DUPLICATE_FIELDS + PREFIX_DATE);
     }
 
     @Test

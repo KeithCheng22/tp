@@ -17,6 +17,7 @@ import seedu.hireshell.logic.commands.FilterCommand;
 import seedu.hireshell.model.person.PersonMatchesFiltersPredicate;
 import seedu.hireshell.model.person.PersonMatchesFiltersPredicate.DateFilter;
 import seedu.hireshell.model.person.PersonMatchesFiltersPredicate.RatingFilter;
+import seedu.hireshell.model.person.Rating;
 
 public class FilterCommandParserTest {
 
@@ -25,6 +26,12 @@ public class FilterCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidPreamble_throwsParseException() {
+        assertParseFailure(parser, " abc " + PREFIX_STATUS + "Accepted",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -104,11 +111,33 @@ public class FilterCommandParserTest {
     public void parse_invalidRating_throwsParseException() {
         // invalid rating value
         assertParseFailure(parser, " " + PREFIX_RATING + ">= abc",
-                "Ratings should be a number between 0 and 10 (Up to 1 decimal place allowed).");
+                Rating.MESSAGE_CONSTRAINTS);
 
         // rating value out of range
         assertParseFailure(parser, " " + PREFIX_RATING + " 11",
-                "Ratings should be a number between 0 and 10 (Up to 1 decimal place allowed).");
+                Rating.MESSAGE_CONSTRAINTS);
+
+        // invalid operator
+        assertParseFailure(parser, " " + PREFIX_RATING + ">> 5",
+                FilterCommandParser.MESSAGE_RATING_FILTER_FORMAT);
+
+        // space between operator and equals
+        assertParseFailure(parser, " " + PREFIX_RATING + "> = 5",
+                FilterCommandParser.MESSAGE_RATING_FILTER_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidStatus_throwsParseException() {
+        // empty status
+        assertParseFailure(parser, " " + PREFIX_STATUS + " ",
+                "Status filter value cannot be empty.");
+    }
+
+    @Test
+    public void parse_invalidRole_throwsParseException() {
+        // empty role
+        assertParseFailure(parser, " " + PREFIX_ROLE + " ",
+                "Role filter value cannot be empty.");
     }
 
     @Test
