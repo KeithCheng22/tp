@@ -114,7 +114,7 @@ Certain columns in the table (that may contain long entries) can be manually res
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit`, and `clear`) will result in an error.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will result in an error.<br>
   e.g. if the command specifies `help 123`, an error message will show "Unknown Arguments found!".
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -136,7 +136,7 @@ Adds a person to the address book.
 Format: `add  n/NAME p/PHONE e/EMAIL [rt/RATING] s/STATUS rs/REFERRAL_STATUS [d/DETAIL] [r/ROLE]…​`
 
 * Persons with the same name/phone number can be added
-* Persons with **both** the same name and phone number will be considered a duplicate person, 
+* Persons with **both** the same name AND (phone number OR email) will be considered a duplicate person, 
 
 <box type="tip" seamless>
 

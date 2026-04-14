@@ -110,6 +110,32 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void setPerson_sameNameAndEditedPhoneMatchesAnother_throwsDuplicatePersonException() {
+        Person firstPerson = new PersonBuilder().withName("Same Name").withPhone("11111111")
+                .withEmail("same1@example.com").build();
+        Person secondPerson = new PersonBuilder().withName("Same Name").withPhone("22222222")
+                .withEmail("same2@example.com").build();
+        uniquePersonList.add(firstPerson);
+        uniquePersonList.add(secondPerson);
+
+        Person editedFirstPerson = new PersonBuilder(firstPerson).withPhone("22222222").build();
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPerson(firstPerson, editedFirstPerson));
+    }
+
+    @Test
+    public void setPerson_sameNameAndEditedEmailMatchesAnother_throwsDuplicatePersonException() {
+        Person firstPerson = new PersonBuilder().withName("Same Name").withPhone("11111111")
+                .withEmail("same1@example.com").build();
+        Person secondPerson = new PersonBuilder().withName("Same Name").withPhone("22222222")
+                .withEmail("same2@example.com").build();
+        uniquePersonList.add(firstPerson);
+        uniquePersonList.add(secondPerson);
+
+        Person editedFirstPerson = new PersonBuilder(firstPerson).withEmail("same2@example.com").build();
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPerson(firstPerson, editedFirstPerson));
+    }
+
+    @Test
     public void remove_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniquePersonList.remove(null));
     }

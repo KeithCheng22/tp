@@ -122,6 +122,22 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_sameNamePhoneCollisionUnfilteredList_failure() {
+        Model customModel = new ModelManager(new AddressBook(), new UserPrefs());
+        Person firstPerson = new PersonBuilder().withName("Same Name").withPhone("11111111")
+                .withEmail("same1@example.com").build();
+        Person secondPerson = new PersonBuilder().withName("Same Name").withPhone("22222222")
+                .withEmail("same2@example.com").build();
+        customModel.addPerson(firstPerson);
+        customModel.addPerson(secondPerson);
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone("22222222").build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+
+        assertCommandFailure(editCommand, customModel, EditCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();

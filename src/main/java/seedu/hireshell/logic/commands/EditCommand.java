@@ -32,6 +32,7 @@ import seedu.hireshell.model.person.Phone;
 import seedu.hireshell.model.person.Rating;
 import seedu.hireshell.model.person.ReferralStatus;
 import seedu.hireshell.model.person.Status;
+import seedu.hireshell.model.person.exceptions.DuplicatePersonException;
 import seedu.hireshell.model.role.Role;
 
 /**
@@ -89,11 +90,11 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
+        try {
+            model.setPerson(personToEdit, editedPerson);
+        } catch (DuplicatePersonException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-
-        model.setPerson(personToEdit, editedPerson);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 

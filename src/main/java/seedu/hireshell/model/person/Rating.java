@@ -10,8 +10,8 @@ import static seedu.hireshell.commons.util.AppUtil.checkArgument;
 public class Rating {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Ratings should be a number between 0 and 10 (decimals allowed).";
-    public static final String VALIDATION_REGEX = "^([0-9](\\.\\d+)?|10(\\.0+)?)$";
+            "Ratings should be a number between 0 and 10 (Up to 1 decimal place allowed).";
+    public static final String VALIDATION_REGEX = "^([0-9](\\.\\d{1})?|10(\\.0{1})?)$";
     public final Double value;
 
     /**
